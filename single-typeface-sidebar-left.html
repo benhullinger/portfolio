@@ -164,7 +164,7 @@
 
 						<div class="box-info">
 							<h4 class="border-top">Category</h4>
-							<p>
+							<p class="info-category">
 								Typeface Design
 							</p>
 						</div><!-- // .box-info -->
@@ -181,21 +181,11 @@
 
 				<div class="project-assets gallery">
 					<div id="asset-1592010" class="image" data-index="0">
-					<a href="images/specimentop.png" data-size="2048x1218" class="view" rel="project-gallery-185006" data-thumb-src="images/specimentop.png">
-					<img srcset="images/specimentop.png 1x" alt="">
-					</a>
-					</div>
-					<div id="asset-1592010" class="image" data-index="1">
-					<a href="images/specimenbottom.png" data-size="2048x1218" class="view" rel="project-gallery-185006" data-thumb-src="images/specimenbottom.png">
-					<img srcset="images/specimenbottom.png 1x" alt="">
-					</a>
-					</div>
-					<div id="asset-1592010" class="image" data-index="2">
 					<a href="images/typefacewall.jpeg" data-size="2048x1509" class="view" rel="project-gallery-185006" data-thumb-src="images/typefacewall.jpeg">
 					<img srcset="images/typefacewall.jpeg 1x" alt="">
 					</a>
 					</div>
-					<div id="asset-1592010" class="image" data-index="3">
+					<div id="asset-1592010" class="image" data-index="1">
 					<a href="images/typefacestand.jpg" data-size="2048x1365" class="view" rel="project-gallery-185006" data-thumb-src="images/typefacestand.jpg">
 					<img srcset="images/typefacestand.jpg 1x" alt="">
 					</a>
@@ -283,8 +273,29 @@
 	<script src="js/less-1.4.0.min.js"></script>
 	<script src="js/jquery.typeMenu.js"></script>
 	<script src="js/jquery.typeSticky.js"></script>
-	<script src="js/lightbox-dunked.min.js"></script>
-
+	<script type="text/javascript">
+		const toggleSwitch = document.querySelector(".hotspot");
+		const currentTheme = localStorage.getItem("theme");
+		var darkModeEnabled = false;
+		if (currentTheme) {
+		  document.documentElement.setAttribute("data-theme", currentTheme);
+		  if (currentTheme === "dark") {
+		    darkModeEnabled = true;
+		  }
+		}
+		function switchTheme() {
+		  if (!darkModeEnabled) {
+		    document.documentElement.setAttribute("data-theme", "dark");
+		    localStorage.setItem("theme", "dark");
+		    darkModeEnabled = true;
+		  } else {
+		    document.documentElement.setAttribute("data-theme", "light");
+		    localStorage.setItem("theme", "light");
+		    darkModeEnabled = false;
+		  }
+		}
+		toggleSwitch.addEventListener("click", switchTheme);
+	</script>
 	<script src="js/jquery.custom.js"></script>
 
 

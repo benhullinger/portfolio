@@ -164,7 +164,7 @@
 
 						<div class="box-info">
 							<h4 class="border-top">Category</h4>
-							<p>
+							<p class="info-category">
 								Illustration
 							</p>
 						</div><!-- // .box-info -->
@@ -271,8 +271,29 @@
 	<script src="js/less-1.4.0.min.js"></script>
 	<script src="js/jquery.typeMenu.js"></script>
 	<script src="js/jquery.typeSticky.js"></script>
-	<script src="js/lightbox-dunked.min.js"></script>
-
+	<script type="text/javascript">
+		const toggleSwitch = document.querySelector(".hotspot");
+		const currentTheme = localStorage.getItem("theme");
+		var darkModeEnabled = false;
+		if (currentTheme) {
+		  document.documentElement.setAttribute("data-theme", currentTheme);
+		  if (currentTheme === "dark") {
+		    darkModeEnabled = true;
+		  }
+		}
+		function switchTheme() {
+		  if (!darkModeEnabled) {
+		    document.documentElement.setAttribute("data-theme", "dark");
+		    localStorage.setItem("theme", "dark");
+		    darkModeEnabled = true;
+		  } else {
+		    document.documentElement.setAttribute("data-theme", "light");
+		    localStorage.setItem("theme", "light");
+		    darkModeEnabled = false;
+		  }
+		}
+		toggleSwitch.addEventListener("click", switchTheme);
+	</script>
 	<script src="js/jquery.custom.js"></script>
 
 
