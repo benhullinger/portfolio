@@ -274,35 +274,13 @@
 		Flexslider 2.1 has known issues of manualControls setting with jQuery 1.9~
 		Use jQuery 1.8 until Flexslider 2.2 stable version is released
 	-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 	<script src="js/jQuery.BlackAndWhite.min.js"></script>
 	<script src="js/modernizr.js"></script>
 	<script src="js/less-1.4.0.min.js"></script>
 	<script src="js/jquery.typeMenu.js"></script>
 	<script src="js/jquery.typeSticky.js"></script>
-	<script type="text/javascript">
-		const toggleSwitch = document.querySelector(".hotspot");
-		const currentTheme = localStorage.getItem("theme");
-		var darkModeEnabled = false;
-		if (currentTheme) {
-		  document.documentElement.setAttribute("data-theme", currentTheme);
-		  if (currentTheme === "dark") {
-		    darkModeEnabled = true;
-		  }
-		}
-		function switchTheme() {
-		  if (!darkModeEnabled) {
-		    document.documentElement.setAttribute("data-theme", "dark");
-		    localStorage.setItem("theme", "dark");
-		    darkModeEnabled = true;
-		  } else {
-		    document.documentElement.setAttribute("data-theme", "light");
-		    localStorage.setItem("theme", "light");
-		    darkModeEnabled = false;
-		  }
-		}
-		toggleSwitch.addEventListener("click", switchTheme);
-	</script>
+	<script src="js/lightbox-dunked.min.js"></script>
 	<script src="js/jquery.custom.js"></script>
 
 
