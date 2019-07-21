@@ -20,9 +20,9 @@
 			toggleElementId: "toggle-menu", 
 			menuOnCollapseText: "Menu", 
 			menuOnExpandText: "Close", 
-			addFirstLevelArrow: true, 
+			addFirstLevelArrow: false, 
 			firstLevelArrow: '<span class="arrow">&nbsp;&#x25BE;</span>', 
-			addDeeperLevelArrow: true, 
+			addDeeperLevelArrow: false, 
 			deeperLevelArrow: '<span class="arrow">&nbsp;&#x25B8;</span>',
 			breakpoint: 768 
 		}; 
@@ -39,6 +39,10 @@
 
 		this.init();
 	}
+
+	$('details').click(function (event) {
+    $('details').not(this).removeAttr("open");  
+    });
 
 
 	Plugin.prototype.init = function() {
