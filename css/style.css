@@ -474,11 +474,21 @@ b, strong { font-weight: bold; }
 			3.1 Navigation
 	---------------------------------------------------*/
 
+	summary {
+		list-style-image: none;
+		outline: none;
+	}
+
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
 	ul#nav {
 		font-size: 12px;
 		line-height: 21px;
 		font-weight: bold;
 		overflow: visible;
+		cursor: pointer;
 	}
 
 	@media screen and (min-width: 768px) and (max-width: 959px) { 
@@ -514,7 +524,7 @@ b, strong { font-weight: bold; }
 		}
 	}
 
-		ul#nav > li a {
+		ul#nav > li a, ul#nav > li details summary {
 			color: var(--primary-color);
 			display: block;
 			padding: 18px 0 15px 0;
@@ -522,13 +532,38 @@ b, strong { font-weight: bold; }
 			border-bottom: 1px solid var(--border-color);
 		}
 
-			ul#nav > li a span.count {
+			ul#nav > li a span.count, ul#nav > li details summary span.count {
 				color: var(--secondary-color);
 				display: block;
 				font-size: 11px;
 			}
 
-		ul#nav > li a:hover {
+	ul#nav > li details[open] summary {
+		color: var(--bg-color);
+		border-bottom: none;
+	}
+
+	ul#nav > li details[open] span.count { color: var(--bg-color); }
+
+	ul#nav > li details[open],
+	ul#nav > li.hover {
+		background: var(--primary-color);
+		margin: 0;
+	}
+
+	ul#nav > li details[open] a,
+	ul#nav > li.hover a {
+		color: var(--bg-color);
+	}
+
+	ul#nav > li details[open] summary span.count,{ color: var(--bg-color); }
+
+	ul#nav > li details[open] ul li:last-child > details summary,
+	ul#nav > li details[open] ul li.last-child > details summary { border-bottom: none; }
+
+	ul#nav > li details[open] summary, ul#nav > li details[open] ul a  { border-bottom: 1px solid var(--secondary-color); }
+
+/*		ul#nav > li a:hover, ul#nav > li details[open] summary {
 			color: var(--bg-color);
 			border-bottom: none;
 		}
@@ -556,12 +591,12 @@ b, strong { font-weight: bold; }
 		ul#nav > li.hover ul li.last-child > a { border-bottom: none; }
 
 	ul#nav > li.hasChild:hover a,
-	ul#nav > li.hasChild.hover a { border-bottom: 1px solid var(--secondary-color); }
+	ul#nav > li.hasChild.hover a { border-bottom: 1px solid var(--secondary-color); }*/
 
 	ul#nav li ul {
 		background: var(--primary-color);
 		width: 100%;
-		visibility: hidden;
+/*		visibility: hidden;*/
 		position: absolute;
 		z-index: 10;
 		top: 100%;
