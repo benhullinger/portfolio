@@ -190,7 +190,7 @@
 }
 .pswp__button--close::after,
 .pswp__button--close::before {
-    background: #000;
+    background: var(--primary-color);
     content: '';
     display: block;
     position: absolute;
@@ -227,7 +227,7 @@
     height: 2px;
     width: 22px;
     position: absolute;
-    background: #000;
+    background: var(--primary-color);
     left: 18px
 }
 .pswp__button--arrow--right::before {
@@ -236,8 +236,8 @@
 }
 .pswp__button--arrow--left::after,
 .pswp__button--arrow--right::after {
-    border-bottom: 2px solid #000;
-    border-left: 2px solid #000;
+    border-bottom: 2px solid var(--primary-color);
+    border-left: 2px solid var(--primary-color);
     height: 10px;
     content: ' ';
     display: block;
@@ -261,7 +261,7 @@
 }
 .pswp__button--arrow--right::after {
     border-left: 0;
-    border-right: 2px solid #000;
+    border-right: 2px solid var(--primary-color);
     left: auto;
     right: 18px;
     transform: rotate(-45deg)
@@ -270,7 +270,7 @@
     left: 0;
     font-size: 13px;
     line-height: 47px;
-    color: #000;
+    color: var(--primary-color);
     opacity: .75;
     padding: 0 10px 0 15px
 }
@@ -428,6 +428,6 @@
     background: 0 0
 }
 .pswp__bg {
-    background: #fff
+    background: var(--bg-color);
 }
 /*# sourceMappingURL=lightbox-dunked.min.css.map */
