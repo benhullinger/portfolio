@@ -128,7 +128,7 @@ b, strong { font-weight: bold; }
 .font-color-white { color: white; }
 .background-color-white { background: white; }
 
-#logohullinger, #logodesign {fill: var(--primary-color);}
+#logohullinger, #logohullinger a, #logodesign {fill: var(--primary-color);}
 #logodot {fill: #32f2a2}
 
 
