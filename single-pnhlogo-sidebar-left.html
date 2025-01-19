@@ -8,8 +8,8 @@
 	<!-- Basic Page Needs
 	================================================== -->
 	<meta charset="utf-8">
-	<title>Project 3</title>
-	<meta name="description" content="Placeholder content for Project 3">
+	<title>Project 4</title>
+	<meta name="description" content="Placeholder content for Project 4">
 	<meta name="author" content="">
 	
 	<!-- Mobile Specific Metas
@@ -157,15 +157,15 @@
 					<div class="desktop-3 tablet-12 columns">
 					
 						<div class="box-info">
-							<h3 class="border-top">Zuranolone Starter Kit</h3>
+							<h3 class="border-top">"More to PNH" Logomark</h3>
 							<p class="project-desc">2022</p>
 
 							<p>
-							Building on my experience with patient-focused design, I developed conceptual mockups for a starter kit that would help
-							guide patients through their treatment journey. Working within theoretical brand parameters, I created visualizations
-							that balanced informational clarity with emotional resonance. This project showcased my ability to design empathetic
-							solutions while maintaining the flexibility to work within undefined brand constraints, similar to my previous work on
-							the Ultomiris starter kit.
+							This project involved developing a comprehensive set of logomarks for a targeted campaign. Through iterative sketching
+							and refinement, I explored various visual directions to capture the campaign's core message. The process culminated in
+							creating polished vector versions that maintained consistency while allowing flexibility across different applications.
+							This work demonstrated my ability to translate conceptual ideas into cohesive brand elements that support broader
+							campaign objectives.
 							</p>
 						</div><!-- // .box-info -->
 
@@ -176,7 +176,7 @@
 						<div class="box-info">
 							<h4 class="border-top">Category</h4>
 							<p class="info-category">
-								Conceptual Design
+								Logo Design
 							</p>
 						</div><!-- // .box-info -->
 
@@ -192,23 +192,18 @@
 
 				<div class="project-assets gallery">
 					<div id="asset-1592010" class="image" data-index="0">
-					<a href="images/specimentop.png" data-size="2048x1218" class="view" rel="project-gallery-185006" data-thumb-src="images/specimentop.png">
-					<img srcset="images/specimentop.png 1x" alt="">
+					<a href="images/pnh_1.png" data-size="1920x1080" class="view" rel="project-gallery-185006" data-thumb-src="images/pnh_1.png">
+					<img srcset="images/pnh_1.png 1x" alt="">
 					</a>
 					</div>
 					<div id="asset-1592010" class="image" data-index="1">
-					<a href="images/specimenbottom.png" data-size="2048x1218" class="view" rel="project-gallery-185006" data-thumb-src="images/specimenbottom.png">
-					<img srcset="images/specimenbottom.png 1x" alt="">
+					<a href="images/pnh_2.png" data-size="1920x1080" class="view" rel="project-gallery-185006" data-thumb-src="images/pnh_2.png">
+					<img srcset="images/pnh_2.png 1x" alt="">
 					</a>
 					</div>
 					<div id="asset-1592010" class="image" data-index="2">
-					<a href="images/typefacewall.jpeg" data-size="2048x1509" class="view" rel="project-gallery-185006" data-thumb-src="images/typefacewall.jpeg">
-					<img srcset="images/typefacewall.jpeg 1x" alt="">
-					</a>
-					</div>
-					<div id="asset-1592010" class="image" data-index="3">
-					<a href="images/typefacestand.jpg" data-size="2048x1365" class="view" rel="project-gallery-185006" data-thumb-src="images/typefacestand.jpg">
-					<img srcset="images/typefacestand.jpg 1x" alt="">
+					<a href="images/pnh_3.png" data-size="1920x2480" class="view" rel="project-gallery-185006" data-thumb-src="images/pnh_3.png">
+					<img srcset="images/pnh_3.png 1x" alt="">
 					</a>
 					</div>
 				</div>
@@ -294,16 +289,29 @@
 	<script src="js/less-1.4.0.min.js"></script>
 	<script src="js/jquery.typeMenu.js"></script>
 	<script src="js/jquery.typeSticky.js"></script>
-
-
-	
-
-	
-
-
-	
-
-
+	<script src="js/lightbox-dunked.min.js"></script>
+		<script type="text/javascript">
+		const toggleSwitch = document.querySelector(".hotspot");
+		const currentTheme = localStorage.getItem("theme");
+		var darkModeEnabled = false;
+		if (currentTheme) {
+		  document.documentElement.setAttribute("data-theme", currentTheme);
+		  if (currentTheme === "dark") {
+		    darkModeEnabled = true;
+		  }
+		}
+		function switchTheme() {
+		  if (!darkModeEnabled) {
+		    document.documentElement.setAttribute("data-theme", "dark");
+		    localStorage.setItem("theme", "dark");
+		    darkModeEnabled = true;
+		  } else {
+		    document.documentElement.setAttribute("data-theme", "light");
+		    localStorage.setItem("theme", "light");
+		    darkModeEnabled = false;
+		  }
+		}
+	</script>
 	<script src="js/jquery.custom.js"></script>
 
 
