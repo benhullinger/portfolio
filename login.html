@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ...existing header code... -->
+    <title>Login - Protected Content</title>
+</head>
+<body>
+    <!-- ...existing nav code... -->
+    
+    <section id="archive">
+        <div class="container">
+            <div class="desktop-12 columns"><div class="border-top"></div></div>
+            <div class="entry">
+                <div class="desktop-12 tablet-12 columns">
+                    <div class="box-content">
+                        <h4>Protected Content</h4>
+                        <form action="/.netlify/functions/login" method="POST">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" />
+                            <button type="submit">Access Protected Content</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="desktop-12 columns"><div class="border-top"></div></div>
+        </div>
+    </section>
+
+    <!-- ...existing footer code... -->
+</body>
+</html>

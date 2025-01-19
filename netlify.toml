@@ -1,0 +1,26 @@
+[[redirects]]
+  from = "/single-iconlibrary-sidebar-left/*"
+  status = 200
+  force = true
+  conditions = {Role = ["pro"]}
+
+[[redirects]]
+  from = "/single-starterkit-sidebar-left/*"
+  status = 200
+  force = true
+  conditions = {Role = ["pro"]}
+
+[[redirects]]
+  from = "/single-pnhlogo-sidebar-left/*"
+  status = 200
+  force = true
+  conditions = {Role = ["pro"]}
+
+[[redirects]]
+  from = "/(single-iconlibrary-sidebar-left|single-starterkit-sidebar-left|single-pnhlogo-sidebar-left)/*"
+  to = "/.netlify/functions/redirect"
+  status = 200
+  force = true
+
+[functions]
+  directory = "functions"
