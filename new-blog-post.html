@@ -27,6 +27,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/typegrid.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/lightbox-dunked.min.css">
 
 
 		
@@ -68,54 +69,31 @@
 				-->
 				<ul id="nav" class="full">
 					<li>
-						<a href="about.html">
-							<span class="count hide-on-mobile">01.</span>
-							About
-						</a>
-						<ul>
-							<li><a href="index-with-iosslider.html">Home w/ Slider</a></li>
-							<li><a href="index-with-flexslider.html">Home w/ Slider 2</a></li>
-							<li><a href="contact.html">Contact Us</a></li>
-						</ul>
+						<details>
+							<summary>
+								<span class="count">01.</span>
+								Works
+								<span class="arrow">&nbsp;▾</span>
+							</summary>
+							<ul>
+								<li><a href="index.html">Designs</a></li>
+								<li><a href="works-stackgrid-images-sketches.html">Sketches</a></li>
+							</ul>
+						</details>
 					</li>
 					<li>
-						<a href="works-stackgrid-with-title.html">
-							<span class="count hide-on-mobile">02.</span>
-							Works
-						</a>
-						<ul>
-							<li><a href="works-stackgrid-images.html">Images Only</a></li>
-							<li><a href="works-architecture-three-columns.html">Architecture</a></li>
-							<li class="hide-on-mobile"><a href="works-architecture-two-columns.html">Two Columns</a></li>
-							<li>
-								<a href="single-photography-sidebar-right.html">Single</a>
-								<ul>
-									<li><a href="single-photography-full-width.html">Full Width</a></li>
-									<li><a href="single-photography-sidebar-left.html">Left Sidebar</a></li>
-								</ul>
-							</li>
-						</ul>
+						<details>
+							<summary>
+								<span class="count">02.</span>
+								Blog
+								<span class="arrow">&nbsp;▾</span>
+							</summary>
+							<ul>
+								<li><a href="squarespace-documentation.html">Shopify + Squarespace</a></li>
+								<li><a href="new-blog-post.html">Goodreads Companion Site</a></li>
+							</ul>
+						</details>
 					</li>
-
-					<li>
-						<a href="shop.html">
-							<span class="count hide-on-mobile">03.</span>Shop
-						</a>
-						<ul>
-							<li><a href="shop-item.html">Single Item</a></li>
-						</ul>
-					</li>
-
-					<li>
-						<a href="archive-blog.html">
-							<span class="count hide-on-mobile">04.</span>
-							Blog
-						</a>
-						<ul>
-							<li><a href="single-blog.html">Single Page</a></li>
-						</ul>
-					</li>
-					
 				</ul><!-- // #nav -->
 
 			</div><!-- // .container -->
@@ -123,92 +101,57 @@
 
 		<div class="logo-wrap">
 			<div class="container">
-				<div class="desktop-6 columns">
-					<h1><a href="index.html" title="Home"><img src="images/logo_text_half.png" alt="" /></a></h1>
-				</div><!-- // .desktop-6 -->
-
-				<div class="desktop-6 columns">
-					<p class="site-desc">
-						Emily Bernd &amp; Associates<br />
-						<span class="font-color-primary">From product to all things digital</span>
-					</p><!-- // .site-desc -->
-				</div><!-- // .desktop-6 -->
-
-				<div class="clear"></div>
+				<div class="desktop-12 columns">
+					<h1><a href="index.html" title="Home">
+						<!-- SVG logo from squarespace-documentation.html -->
+						<svg id="logohullingerdesign" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 455.15 38.36" xml:space="preserve">
+							<!-- ...existing SVG content... -->
+						</svg>
+					</a></h1>
+				</div><!-- // .desktop-12 -->
 			</div><!-- // .container -->
 		</div><!-- // .logo-wrap -->
 	</section><!-- // #header -->
 
-	<!-- Blog Style Post
+	<!-- Blog (Single)
 	================================================== -->
-	<section id="blog-style-post" class="page">
-		
+	<section id="archive">
 		<div class="container">
-
 			<div class="desktop-12 columns"><div class="border-top"></div></div>
-			
-			<div class="clear"></div>
 
-			<div class="desktop-3 tablet-12 columns">
-				<h2>New Blog Post</h2>
-			</div>
-			<div class="desktop-9 tablet-12 columns">
-				<p class="page-desc">This is a placeholder description for a new blog post. Replace this text with the actual blog post content.</p>
-			</div>
-		</div><!-- // .container -->
-
-		<div class="blog-content">
-
-			<div class="container">
+			<div class="entry">
+				<div class="desktop-12 columns">
+					<img src="images/placeholder1.png" alt="" />
+				</div>
 				
-					<div class="item">
-						<div class="desktop-3 tablet-6 columns">
-							<img src="images/placeholder1.png" alt="">
-						</div><!-- // .desktop-3 -->
+				<div class="desktop-12 columns">
+					<div style="margin-top: 20px; padding-top:20px" class="border-top"></div>
+				</div>
+				
+				<div class="desktop-12 tablet-12 columns">
+					<div class="box-content">
+						<h4>Placeholder Detail 1</h4>
+						<p>This is a placeholder detail for the new blog post. Replace this text with the actual blog post detail.</p>
 
-						<div class="desktop-6 tablet-6 columns">
-							<h4>Placeholder Detail 1</h4>
-							<p>This is a placeholder detail for the new blog post. Replace this text with the actual blog post detail.</p>
-						</div><!-- // .desktop-6 -->
+						<h4 style="margin-top: 40px">Placeholder Detail 2</h4>
+						<p>This is another placeholder detail for the new blog post. Replace this text with the actual blog post detail.</p>
+					</div>
+				</div>
 
-						<div class="clear"></div>
-					</div><!-- // .item -->
-
-					<div class="item">
-						<div class="desktop-3 offset-3 tablet-6 tablet-offset-0 columns">
-							<img src="images/placeholder2.png" alt="">
-						</div><!-- // .desktop-3 -->
-
-						<div class="desktop-6 tablet-6 columns">
-							<h4>Placeholder Detail 2</h4>
-							<p>This is another placeholder detail for the new blog post. Replace this text with the actual blog post detail.</p>
-						</div><!-- // .desktop-6 -->
-
-						<div class="clear"></div>
-					</div><!-- // .item -->
-
-			</div><!-- // .container -->
-
-		</div><!-- // .blog-content -->
-
-	</section><!-- // section#blog-style-post -->
-
-
-
+				<div class="clear"></div>
+			</div>
+			<div class="desktop-12 columns"><div class="border-top"></div></div>
+		</div>
+	</section><!-- // section#archive -->
 
 	<!-- Footer
 	================================================== -->
 	<section id="footer">
 		<div class="container">
-			<div class="desktop-3 columns">
-				<p>Copyright &copy; <a href="http://www.typebig.com" class="italic">Typebig</a></p>
-			</div><!-- // .desktop-3 -->
-
 			<div class="desktop-9 columns">
 				<ul id="social">
-					<li><a href="http://www.facebook.com" class="hoverMe">Facebook</a></li>
-					<li><a href="http://www.twitter.com" class="hoverMe">Twitter</a></li>
-					<li><a href="http://www.google.com" class="hoverMe">Google+</a></li>
+					<li style="cursor: default;" class="hoverMe">benhullinger@gmail.com</li>
+					<li style="cursor: default;" class="hoverMe">(224) 500-5889</li>
 				</ul><!-- // #social -->
 			</div><!-- // .desktop-9 -->
 
@@ -223,22 +166,35 @@
 		Flexslider 2.1 has known issues of manualControls setting with jQuery 1.9~
 		Use jQuery 1.8 until Flexslider 2.2 stable version is released
 	-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.min.js'></script>
 	<script src="js/jQuery.BlackAndWhite.min.js"></script>
 	<script src="js/modernizr.js"></script>
 	<script src="js/less-1.4.0.min.js"></script>
 	<script src="js/jquery.typeMenu.js"></script>
 	<script src="js/jquery.typeSticky.js"></script>
-
-
-	
-
-	
-
-
-	
-
-
+	<script type="text/javascript">
+        const toggleSwitch = document.querySelector(".hotspot");
+        const currentTheme = localStorage.getItem("theme");
+        var darkModeEnabled = false;
+        if (currentTheme) {
+          document.documentElement.setAttribute("data-theme", currentTheme);
+          if (currentTheme === "dark") {
+            darkModeEnabled = true;
+          }
+        }
+        function switchTheme() {
+          if (!darkModeEnabled) {
+            document.documentElement.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
+            darkModeEnabled = true;
+          } else {
+            document.documentElement.setAttribute("data-theme", "light");
+            localStorage.setItem("theme", "light");
+            darkModeEnabled = false;
+          }
+        }
+    </script>
 	<script src="js/jquery.custom.js"></script>
 
 
