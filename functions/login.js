@@ -2,16 +2,15 @@ const querystring = require('querystring');
 const axios = require('axios');
 
 exports.handler = async function (event, context) {
-  // Get password from form submission
   const { password } = querystring.parse(event.body);
   
-  // Get redirect path from query string
-  const { redirect } = querystring.parse(event.headers.referer.split('?')[1]);
-
+  // Get redirect from query string instead of referer
+  const { redirect } = querystring.parse(event.queryStringParameters || '');
+  
   const endpoint = `${process.env.URL}/.netlify/identity/token`;
   const data = querystring.stringify({
     grant_type: 'password',
-    username: process.env.AUTH_USERNAME, // Set this in Netlify environment variables
+    username: process.env.AUTH_USERNAME,
     password: password,
   });
 
@@ -25,7 +24,8 @@ exports.handler = async function (event, context) {
       headers: {
         'Set-Cookie': `nf_jwt=${response.data.access_token}; Path=/; HttpOnly; Secure`,
         'Cache-Control': 'no-cache',
-        Location: redirect || '/index.html',
+        // Use the redirect parameter or fallback to home
+        Location: decodeURIComponent(redirect) || '/index.html',
       },
     };
   } catch (error) {
@@ -33,7 +33,7 @@ exports.handler = async function (event, context) {
       statusCode: 302,
       headers: {
         'Cache-Control': 'no-cache',
-        Location: `/login/?redirect=${encodeURIComponent(redirect)}`,
+        Location: `/login.html?redirect=${redirect || ''}`,
       },
     };
   }
