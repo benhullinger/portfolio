@@ -25,7 +25,7 @@
                         <form id="loginForm" action="/.netlify/functions/login" method="POST">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" />
-                            <input type="hidden" name="return" id="returnInput" />
+                            <!-- <input type="hidden" name="return" id="returnInput" /> -->
                             <button type="submit">Access Protected Content</button>
                         </form>
                     </div>
@@ -35,14 +35,14 @@
         </div>
     </section>
 
-    <script>
+    <!-- <script>
         // Get redirect from URL and set it in hidden input
         const urlParams = new URLSearchParams(window.location.search);
         const returnParam = urlParams.get('return');
         if (returnParam) {
             document.getElementById('returnInput').value = returnParam;
         }
-    </script>
+    </script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script src="js/jQuery.BlackAndWhite.min.js"></script>
     <script src="js/modernizr.js"></script>
