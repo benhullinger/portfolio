@@ -14,7 +14,7 @@
 
 [[redirects]]
   from = "/single-starterkit-sidebar-left.html"
-  to = "/.netlify/functions/redirect"  
+  to = "/.netlify/functions/redirect"
   status = 302
   force = true
 

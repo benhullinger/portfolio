@@ -1,5 +1,5 @@
 exports.handler = async (event) => {
-  const path = event.path;
+  const path = encodeURIComponent(event.path);
   return {
     statusCode: 302,
     headers: {

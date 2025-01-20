@@ -2,8 +2,9 @@ const querystring = require('querystring');
 const axios = require('axios');
 
 exports.handler = async function (event, context) {
-  const { password, redirect } = querystring.parse(event.body);
-  
+  const { password } = querystring.parse(event.body);
+  const { redirect } = querystring.parse(event.headers.referer.split('?')[1]);
+
   const endpoint = `${process.env.URL}/.netlify/identity/token`;
   const data = querystring.stringify({
     grant_type: 'password',
@@ -15,11 +16,12 @@ exports.handler = async function (event, context) {
     const response = await axios.post(endpoint, data, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
-    
+    const access_token = response.data.access_token;
+
     return {
       statusCode: 302,
       headers: {
-        'Set-Cookie': `nf_jwt=${response.data.access_token}; Path=/; HttpOnly; Secure`,
+        'Set-Cookie': `nf_jwt=${access_token}; Path=/; HttpOnly; Secure`,
         'Cache-Control': 'no-cache',
         Location: redirect || '/index.html',
       },
@@ -29,7 +31,7 @@ exports.handler = async function (event, context) {
       statusCode: 302,
       headers: {
         'Cache-Control': 'no-cache',
-        Location: `/login.html?redirect=${redirect || ''}`,
+        Location: `/login.html?redirect=${encodeURIComponent(redirect)}`,
       },
     };
   }
