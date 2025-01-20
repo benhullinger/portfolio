@@ -1,23 +1,14 @@
-# Make login page always accessible
-[[redirects]]
-  from = "/login.html"
-  to = "/login.html"
-  status = 200
-  force = true
-
-# First, redirect unauthorized access to login
-[[redirects]]
-  from = "/pro/*"
-  to = "/.netlify/functions/redirect"
-  status = 302
-  force = true
-
-# Then allow access if authenticated with correct role
 [[redirects]]
   from = "/pro/*"
   status = 200
   force = true
   conditions = {Role = ["pro"]}
+
+[[redirects]]
+ from = "/pro/*"
+ to = "/.netlify/functions/redirect"
+ status = 200
+ force = true
 
 [functions]
   directory = "functions"

@@ -1,9 +1,10 @@
 exports.handler = async (event) => {
   const path = encodeURIComponent(event.path);
+
   return {
     statusCode: 302,
     headers: {
-      Location: `/login.html?return=${path}`,
+      Location: `/login/?redirect=${path}`,
     },
   };
 };
