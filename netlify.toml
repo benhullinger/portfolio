@@ -1,40 +1,40 @@
 [[redirects]]
-  from = "/single-iconlibrary-sidebar-left"
+  from = "/single-iconlibrary-sidebar-left.html"
   to = "/single-iconlibrary-sidebar-left.html"
-  status = 302
+  status = 200
   force = true
   conditions = {Role = ["pro"]}
 
 [[redirects]]
-  from = "/single-starterkit-sidebar-left"
+  from = "/single-starterkit-sidebar-left.html"
   to = "/single-starterkit-sidebar-left.html"
-  status = 302
+  status = 200
   force = true
   conditions = {Role = ["pro"]}
 
 [[redirects]]
-  from = "/single-pnhlogo-sidebar-left"
+  from = "/single-pnhlogo-sidebar-left.html"
   to = "/single-pnhlogo-sidebar-left.html"
-  status = 302
+  status = 200
   force = true
   conditions = {Role = ["pro"]}
 
 [[redirects]]
-  from = "/single-iconlibrary-sidebar-left"
+  from = "/single-iconlibrary-sidebar-left.html"
   to = "/.netlify/functions/redirect"
-  status = 302
+  status = 200
   force = true
 
 [[redirects]]
-  from = "/single-starterkit-sidebar-left"
+  from = "/single-starterkit-sidebar-left.html"
   to = "/.netlify/functions/redirect"
-  status = 302
+  status = 200
   force = true
 
 [[redirects]]
-  from = "/single-pnhlogo-sidebar-left"
-  to = "/.netlify/functions/redirect"  
-  status = 302
+  from = "/single-pnhlogo-sidebar-left.html"
+  to = "/.netlify/functions/redirect"
+  status = 200
   force = true
 
 [functions]
