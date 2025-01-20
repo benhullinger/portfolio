@@ -7,41 +7,14 @@
 
 # First, redirect unauthorized access to login
 [[redirects]]
-  from = "/single-iconlibrary-sidebar-left.html"
-  to = "/.netlify/functions/redirect"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/single-starterkit-sidebar-left.html"
-  to = "/.netlify/functions/redirect"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/single-pnhlogo-sidebar-left.html"
+  from = "/pro/*"
   to = "/.netlify/functions/redirect"
   status = 302
   force = true
 
 # Then allow access if authenticated with correct role
 [[redirects]]
-  from = "/single-iconlibrary-sidebar-left.html"
-  to = "/single-iconlibrary-sidebar-left.html"
-  status = 200
-  force = true
-  conditions = {Role = ["pro"]}
-
-[[redirects]]
-  from = "/single-starterkit-sidebar-left.html"
-  to = "/single-starterkit-sidebar-left.html"
-  status = 200
-  force = true
-  conditions = {Role = ["pro"]}
-
-[[redirects]]
-  from = "/single-pnhlogo-sidebar-left.html"
-  to = "/single-pnhlogo-sidebar-left.html"
+  from = "/pro/*"
   status = 200
   force = true
   conditions = {Role = ["pro"]}

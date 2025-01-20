@@ -3,12 +3,12 @@ const axios = require('axios');
 
 exports.handler = async function (event, context) {
   const { password } = querystring.parse(event.body);
-  const { redirect } = querystring.parse(event.headers.referer.split('?')[1]);
+  const { return: returnParam } = querystring.parse(event.headers.referer.split('?')[1]);
 
   const endpoint = `${process.env.URL}/.netlify/identity/token`;
   const data = querystring.stringify({
     grant_type: 'password',
-    username: process.env.AUTH_USERNAME,
+    username: 'email@hullinger.design',
     password: password,
   });
 
@@ -23,7 +23,7 @@ exports.handler = async function (event, context) {
       headers: {
         'Set-Cookie': `nf_jwt=${access_token}; Path=/; HttpOnly; Secure`,
         'Cache-Control': 'no-cache',
-        Location: redirect || '/index.html',
+        Location: returnParam || '/pro/',
       },
     };
   } catch (error) {
@@ -31,7 +31,7 @@ exports.handler = async function (event, context) {
       statusCode: 302,
       headers: {
         'Cache-Control': 'no-cache',
-        Location: `/login.html?redirect=${encodeURIComponent(redirect)}`,
+        Location: `/login.html?return=${encodeURIComponent(returnParam)}`,
       },
     };
   }
