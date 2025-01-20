@@ -1,11 +1,30 @@
-# First, make login page always accessible
+# Make login page always accessible
 [[redirects]]
   from = "/login.html"
   to = "/login.html"
   status = 200
   force = true
 
-# Then handle authenticated access to protected pages  
+# First, redirect unauthorized access to login
+[[redirects]]
+  from = "/single-iconlibrary-sidebar-left.html"
+  to = "/.netlify/functions/redirect"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/single-starterkit-sidebar-left.html"
+  to = "/.netlify/functions/redirect"  
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/single-pnhlogo-sidebar-left.html"
+  to = "/.netlify/functions/redirect"
+  status = 302
+  force = true
+
+# Then allow access if authenticated with correct role
 [[redirects]]
   from = "/single-iconlibrary-sidebar-left.html"
   to = "/single-iconlibrary-sidebar-left.html"
@@ -26,25 +45,6 @@
   status = 200
   force = true
   conditions = {Role = ["pro"]}
-
-# Finally, redirect unauthorized access to login
-[[redirects]]
-  from = "/single-iconlibrary-sidebar-left.html"
-  to = "/.netlify/functions/redirect"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/single-starterkit-sidebar-left.html"
-  to = "/.netlify/functions/redirect"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/single-pnhlogo-sidebar-left.html"
-  to = "/.netlify/functions/redirect"
-  status = 302
-  force = true
 
 [functions]
   directory = "functions"
