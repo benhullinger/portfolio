@@ -2,10 +2,7 @@ const querystring = require('querystring');
 const axios = require('axios');
 
 exports.handler = async function (event, context) {
-  const { password } = querystring.parse(event.body);
-  
-  // Get redirect from query string instead of referer
-  const { redirect } = querystring.parse(event.queryStringParameters || '');
+  const { password, redirect } = querystring.parse(event.body);
   
   const endpoint = `${process.env.URL}/.netlify/identity/token`;
   const data = querystring.stringify({
@@ -24,8 +21,7 @@ exports.handler = async function (event, context) {
       headers: {
         'Set-Cookie': `nf_jwt=${response.data.access_token}; Path=/; HttpOnly; Secure`,
         'Cache-Control': 'no-cache',
-        // Use the redirect parameter or fallback to home
-        Location: decodeURIComponent(redirect) || '/index.html',
+        Location: redirect || '/index.html',
       },
     };
   } catch (error) {
