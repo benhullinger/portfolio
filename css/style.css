@@ -233,7 +233,7 @@ b, strong { font-weight: bold; }
 		font-weight: bold; 
 		text-align: center;
 		padding: 20px 25px 18px 25px;
-		border-bottom: 2px solid #11ddcc; 
+		border-bottom: 2px solid #2dd68a; 
 		cursor: pointer;
 		display: inline-block;
 		-webkit-box-sizing: border-box;
@@ -270,9 +270,12 @@ b, strong { font-weight: bold; }
 			-o-border-radius: 5px;
 			border-radius: 5px;
 			padding: 30px 40px 26px 40px;
-			border-bottom: 4px solid #11ddcc; 
+			border-bottom: 4px solid #2dd68a; 
 		}
 
+			button:hover,
+			.button:hover,
+			a.button:hover { background: #28bc79; }
 
 			button.black,
 			.button.black,
@@ -556,7 +559,7 @@ b, strong { font-weight: bold; }
 		color: var(--bg-color);
 	}
 
-	ul#nav > li details[open] summary span.count,{ color: var(--bg-color); }
+	ul#nav > li details[open] summary span.count { color: var(--bg-color); }
 
 	ul#nav > li details[open] ul li:last-child > details summary,
 	ul#nav > li details[open] ul li.last-child > details summary { border-bottom: none; }
@@ -914,10 +917,7 @@ b, strong { font-weight: bold; }
 
 
 	
-	/* Single */
-	#works.single {
-	
-	}
+		/* Single Work */
 
 		#works.single img { 
 			margin-bottom: 60px; 
@@ -1134,11 +1134,7 @@ b, strong { font-weight: bold; }
 
 
 
-	
 	/* Cart */
-	.table-cart {
-
-	}
 
 	.cart-header {
 		font-weight: bold; 
@@ -1225,11 +1221,7 @@ b, strong { font-weight: bold; }
 	}
 
 
-
-
-	#checkout {
-
-	}
+	/* Cart - for a width of 480px */
 
 	#checkout label {
 		display: block;
@@ -1381,9 +1373,6 @@ b, strong { font-weight: bold; }
 			color: #111; 
 		}
 
-	#archive .entry .box-tags h5 {
-	}
-
 	#archive .entry p.tags {
 		font-size: 12px; 
 		line-height: 22px; 
@@ -1453,7 +1442,7 @@ b, strong { font-weight: bold; }
 			4.8 Contact
 	---------------------------------------------------*/
 
-	section#contact { /* Register Form */:  }
+	/* Register Form */
 
 		section#contact p.title-desc { margin-bottom: 40px; }
 
@@ -1542,7 +1531,6 @@ b, strong { font-weight: bold; }
 			display: inline-block;
 			padding: 0 40px 0 0;
 			color: var(--primary-color);
-			float: left;
 		}
 
 			#footer ul#social li a {
@@ -1701,6 +1689,7 @@ b, strong { font-weight: bold; }
 	.flexslider .slides > div {
 		display: none;
 		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
 	}
 
 	/* Hide the slides before the JS is loaded. Avoids image jumping */
@@ -1747,7 +1736,7 @@ b, strong { font-weight: bold; }
 	.flexslider .slides { zoom: 1; }
 
 	/* Direction Nav */
-	.flex-direction-nav { *height: 0; }
+	.flex-direction-nav { height: 0; }
 
 		.flex-direction-nav a {
 			width: 30px;
@@ -1762,6 +1751,7 @@ b, strong { font-weight: bold; }
 			text-indent: -9999px;
 			opacity: 0;
 			-webkit-transition: all .3s ease;
+			transition: all .3s ease;
 		}
 
 		.flex-direction-nav .flex-next {
@@ -1804,7 +1794,7 @@ b, strong { font-weight: bold; }
 			margin: 0 6px;
 			display: inline-block;
 			zoom: 1;
-			*display: inline;
+			display: inline;
 		}
 
 	.flex-control-paging li a {
@@ -1886,8 +1876,6 @@ b, strong { font-weight: bold; }
 			border-top: 1px solid #333; 
 			padding-top: 10px; 
 		}
-
-	.item-nav.flex-active {}
 
 	.item-nav.flex-active h4 { 
 		color: white; 
