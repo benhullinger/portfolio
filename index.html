@@ -363,13 +363,17 @@
 		}
 		function switchTheme() {
 		  if (!darkModeEnabled) {
-		    document.documentElement.setAttribute("data-theme", "dark");
-		    localStorage.setItem("theme", "dark");
-		    darkModeEnabled = true;
+		    requestAnimationFrame(() => {
+		      document.documentElement.setAttribute("data-theme", "dark");
+		      localStorage.setItem("theme", "dark");
+		      darkModeEnabled = true;
+		    });
 		  } else {
-		    document.documentElement.setAttribute("data-theme", "light");
-		    localStorage.setItem("theme", "light");
-		    darkModeEnabled = false;
+		    requestAnimationFrame(() => {
+		      document.documentElement.setAttribute("data-theme", "light");
+		      localStorage.setItem("theme", "light");
+		      darkModeEnabled = false;
+		    });
 		  }
 		}
 		toggleSwitch.addEventListener("click", switchTheme);
