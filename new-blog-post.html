@@ -4,12 +4,18 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-
+	<script>
+		const savedTheme = localStorage.getItem("theme");
+		if (savedTheme) {
+			document.documentElement.setAttribute("data-theme", savedTheme);
+		}
+	</script>
+	
 	<!-- Basic Page Needs
 	================================================== -->
 	<meta charset="utf-8">
 	<title>New Blog Post</title>
-	<meta name="description" content="Placeholder content for a new blog post">
+	<meta name="description" content=".">
 	<meta name="author" content="">
 	
 	<!-- Mobile Specific Metas
