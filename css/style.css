@@ -145,14 +145,11 @@ b, strong { font-weight: bold; }
     --transition-time: 0.3s;
 }
 
-html {
-  transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
-}
-
 html * {
-  transition: background-color var(--transition-time) ease, 
-              color var(--transition-time) ease, 
-              border-color var(--transition-time) ease;
+    transition: background-color var(--transition-time) ease,
+                color var(--transition-time) ease,
+                border-color var(--transition-time) ease,
+                fill var(--transition-time) ease;
 }
 
 [data-theme="dark"] {
