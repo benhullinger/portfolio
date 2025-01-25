@@ -146,10 +146,11 @@ b, strong { font-weight: bold; }
 }
 
 html * {
-    transition: background-color var(--transition-time) ease,
-                color var(--transition-time) ease,
-                border-color var(--transition-time) ease,
-                fill var(--transition-time) ease;
+    transition: 
+        background-color var(--transition-time) ease,
+        color var(--transition-time) ease,
+        border-color var(--transition-time) ease,
+        fill var(--transition-time) ease;
 }
 
 [data-theme="dark"] {
@@ -637,8 +638,6 @@ html * {
 		top: 0;
 		left: 100%;
 	}
-
-
 
 	/* Mobile Menu */
 	#menu-mobile-wrapper { display: none; }
