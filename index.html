@@ -365,9 +365,7 @@
 
 		if (currentTheme) {
 		    document.documentElement.setAttribute("data-theme", currentTheme);
-		    if (currentTheme === "dark") {
-		        darkModeEnabled = true;
-		    }
+		    darkModeEnabled = currentTheme === "dark";
 		}
 
 		function switchTheme() {
@@ -377,13 +375,13 @@
 		    if (!darkModeEnabled) {
 		        requestAnimationFrame(() => {
 		            document.documentElement.setAttribute("data-theme", "dark");
-		            localStorage.setItem("theme", "light");
+		            localStorage.setItem("theme", "dark");
 		            darkModeEnabled = true;
 		        });
 		    } else {
 		        requestAnimationFrame(() => {
 		            document.documentElement.setAttribute("data-theme", "light");
-		            localStorage.setItem("theme", "dark");
+		            localStorage.setItem("theme", "light");
 		            darkModeEnabled = false;
 		        });
 		    }
