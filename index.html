@@ -362,27 +362,38 @@
 		const toggleSwitch = document.querySelector(".hotspot");
 		const currentTheme = localStorage.getItem("theme");
 		var darkModeEnabled = false;
+
 		if (currentTheme) {
-		  document.documentElement.setAttribute("data-theme", currentTheme);
-		  if (currentTheme === "dark") {
-		    darkModeEnabled = true;
-		  }
+		    document.documentElement.setAttribute("data-theme", currentTheme);
+		    if (currentTheme === "dark") {
+		        darkModeEnabled = true;
+		    }
 		}
+
 		function switchTheme() {
-		  if (!darkModeEnabled) {
-		    requestAnimationFrame(() => {
-		      document.documentElement.setAttribute("data-theme", "dark");
-		      localStorage.setItem("theme", "dark");
-		      darkModeEnabled = true;
-		    });
-		  } else {
-		    requestAnimationFrame(() => {
-		      document.documentElement.setAttribute("data-theme", "light");
-		      localStorage.setItem("theme", "light");
-		      darkModeEnabled = false;
-		    });
-		  }
+		    // Add transition class
+		    document.documentElement.classList.add('theme-transition');
+		    
+		    if (!darkModeEnabled) {
+		        requestAnimationFrame(() => {
+		            document.documentElement.setAttribute("data-theme", "dark");
+		            localStorage.setItem("theme", "light");
+		            darkModeEnabled = true;
+		        });
+		    } else {
+		        requestAnimationFrame(() => {
+		            document.documentElement.setAttribute("data-theme", "light");
+		            localStorage.setItem("theme", "dark");
+		            darkModeEnabled = false;
+		        });
+		    }
+
+		    // Remove transition class after transition is complete
+		    setTimeout(() => {
+		        document.documentElement.classList.remove('theme-transition');
+		    }, parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--theme-transition-time')) * 1000);
 		}
+
 		toggleSwitch.addEventListener("click", switchTheme);
 	</script>
 	<script src="js/jquery.custom.js"></script>

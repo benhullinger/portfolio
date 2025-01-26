@@ -142,15 +142,20 @@ b, strong { font-weight: bold; }
     --border-color: #DDD;
     --bg-color: #FCFCFC;
     --hover-color: #292922;
-    --transition-time: 0.3s;
+    --theme-transition-time: 0.3s;
 }
 
-html * {
-    transition: 
-        background-color var(--transition-time) ease,
-        color var(--transition-time) ease,
-        border-color var(--transition-time) ease,
-        fill var(--transition-time) ease;
+html {
+    transition: none;
+    &.theme-transition {
+        transition: background-color var(--theme-transition-time) ease;
+
+        * {
+            transition-duration: var(--theme-transition-time);
+            transition-timing-function: ease;
+            transition-property: background-color, color, border-color, fill, stroke;
+        }
+    }
 }
 
 [data-theme="dark"] {
