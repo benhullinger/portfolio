@@ -34,12 +34,21 @@
             const wrapper = document.createElement('div');
             wrapper.innerHTML = responseText;
 
-            // Look for either #works or #archive sections
+            // Look for main content sections with multiple possible IDs
             const oldContent = document.querySelector('main > section');
-            const newContent = wrapper.querySelector('main > section');
+            let newContent = wrapper.querySelector('main > section');
+
+            // Try alternate content types if main section not found
+            if (!newContent) {
+                console.log('Trying to find alternate content structure');
+                newContent = wrapper.querySelector('main > .stackgrid');
+                if (!newContent) {
+                    newContent = wrapper.querySelector('main > #works');
+                }
+            }
 
             console.log('Old content:', oldContent?.id);
-            console.log('New content:', newContent?.id);
+            console.log('New content:', newContent?.id || 'content found but no ID');
 
             if(oldContent && newContent) {
                 // Update page title
@@ -51,8 +60,11 @@
                 oldContent.style.top = '0';
                 oldContent.style.left = '0';
                 oldContent.style.opacity = '1';
+                oldContent.style.zIndex = '1';
                 
                 newContent.style.opacity = '0';
+                newContent.style.position = 'relative';
+                newContent.style.zIndex = '2';
                 
                 // Add to DOM
                 document.querySelector('main').appendChild(newContent);
