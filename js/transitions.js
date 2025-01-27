@@ -39,6 +39,12 @@
                 // Update page title
                 document.title = wrapper.querySelector('title').textContent;
 
+                // Copy over any inline styles that might affect layout
+                const oldStyles = oldContent.getAttribute('style');
+                if (oldStyles) {
+                    newContent.setAttribute('style', oldStyles);
+                }
+                
                 // Initialize transition
                 oldContent.style.opacity = '1';
                 newContent.style.opacity = '0';
@@ -46,18 +52,24 @@
                 // Add new content
                 document.querySelector('main').appendChild(newContent);
                 
-                // Trigger transition
+                // Force reflow and trigger transition
+                newContent.offsetHeight;
                 requestAnimationFrame(() => {
                     oldContent.style.opacity = '0';
                     newContent.style.opacity = '1';
                     
-                    // Clean up after transition
+                    // Clean up and reinitialize plugins
                     setTimeout(() => {
                         oldContent.parentNode.removeChild(oldContent);
                         window.scrollTo(0, scrollPos);
-                        // Reinitialize sticky elements
-                        if ($.fn.typeSticky) {
-                            $('.sticky').typeSticky();
+                        
+                        // Reinitialize plugins safely
+                        if (typeof $.fn.typeSticky === 'function') {
+                            try {
+                                $('.sticky').typeSticky();
+                            } catch (e) {
+                                console.warn('Error reinitializing typeSticky:', e);
+                            }
                         }
                     }, 400);
                 });
