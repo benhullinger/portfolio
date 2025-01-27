@@ -53,22 +53,27 @@
 
     // Animate transition between pages
     function animate(oldContent, newContent) {
+        // Set initial styles for both contents
         oldContent.style.position = 'absolute';
         oldContent.style.width = '100%';
         oldContent.style.top = '0';
         oldContent.style.left = '0';
-
-        const fadeOut = oldContent.animate({
-            opacity: [1, 0]
-        }, 400);
-
-        const fadeIn = newContent.animate({
-            opacity: [0, 1]  
-        }, 400);
-
-        fadeIn.onfinish = function() {
+        oldContent.style.transition = 'opacity 0.4s ease-in-out';
+        
+        newContent.style.opacity = '0';
+        newContent.style.transition = 'opacity 0.4s ease-in-out';
+        
+        // Force browser reflow
+        newContent.offsetHeight;
+        
+        // Start animation
+        oldContent.style.opacity = '0';
+        newContent.style.opacity = '1';
+        
+        // Remove old content after animation
+        setTimeout(() => {
             oldContent.parentNode.removeChild(oldContent);
-        };
+        }, 400);
     }
 
     // Listen for back/forward navigation
