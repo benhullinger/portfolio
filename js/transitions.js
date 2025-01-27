@@ -1,9 +1,14 @@
 (function() {
+    // Don't run transitions if using file:// protocol
+    if (window.location.protocol === 'file:') {
+        console.warn('Page transitions require serving files from a web server. Using file:// protocol will disable transitions.');
+        return;
+    }
 
     // Cache for storing fetched pages
     const cache = {};
 
-    // Load page content via fetch
+    // Load page content via fetch 
     function loadPage(url) {
         if (cache[url]) {
             return Promise.resolve(cache[url]);
@@ -25,13 +30,24 @@
             const wrapper = document.createElement('div');
             wrapper.innerHTML = responseText;
 
-            const oldContent = document.querySelector('#archive');
-            const newContent = wrapper.querySelector('#archive');
+            // Look for either #works or #archive sections
+            const oldContent = document.querySelector('main > section');
+            const newContent = wrapper.querySelector('main > section');
 
             if(oldContent && newContent) {
+                // Update page title
+                document.title = wrapper.querySelector('title').textContent;
+                
+                // Swap content
                 document.querySelector('main').appendChild(newContent);
                 animate(oldContent, newContent);
+            } else {
+                // Fallback to regular navigation if sections not found
+                window.location.href = url;
             }
+        }).catch(function(err) {
+            console.error('Error during page transition:', err);
+            window.location.href = url; // Fallback to regular navigation
         });
     }
 
@@ -39,6 +55,8 @@
     function animate(oldContent, newContent) {
         oldContent.style.position = 'absolute';
         oldContent.style.width = '100%';
+        oldContent.style.top = '0';
+        oldContent.style.left = '0';
 
         const fadeOut = oldContent.animate({
             opacity: [1, 0]
