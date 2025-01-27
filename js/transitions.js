@@ -18,6 +18,16 @@
         });
     }
 
+    function updateHeader(newDocument) {
+        // Update the logo link
+        const currentLogo = document.querySelector('#header h1 > a');
+        const newLogo = newDocument.querySelector('#header h1 > a');
+        if (currentLogo && newLogo) {
+            currentLogo.href = newLogo.href;
+            currentLogo.title = newLogo.title;
+        }
+    }
+
     function changePage() {
         const url = window.location.href;
         const scrollPos = window.scrollY;
@@ -27,6 +37,9 @@
         loadPage(url).then(function(responseText) {
             const wrapper = document.createElement('div');
             wrapper.innerHTML = responseText;
+
+            // Update header links
+            updateHeader(wrapper);
 
             const oldContent = document.querySelector('main > section');
             const newContent = wrapper.querySelector('main > section');
