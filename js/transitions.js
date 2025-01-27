@@ -38,6 +38,33 @@
         });
     }
 
+    // Animate transition between pages
+    function animate(oldContent, newContent) {
+        // Set initial styles for both contents
+        oldContent.classList.add('transitioning');
+        oldContent.style.opacity = '1';
+        
+        newContent.style.opacity = '0';
+        
+        // Force reflow
+        newContent.offsetHeight;
+        
+        // Start transition
+        requestAnimationFrame(() => {
+            oldContent.style.transition = 'opacity 0.4s ease-in-out';
+            newContent.style.transition = 'opacity 0.4s ease-in-out';
+            
+            oldContent.style.opacity = '0';
+            newContent.style.opacity = '1';
+            
+            // Clean up after transition
+            setTimeout(() => {
+                oldContent.remove();
+                oldContent.classList.remove('transitioning');
+            }, 400);
+        });
+    }
+
     // Handle page transitions
     function changePage() {
         const url = window.location.href;
