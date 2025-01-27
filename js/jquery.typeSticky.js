@@ -54,44 +54,49 @@
 	
 			// If sticky sidebar exists
 			if( $sticky.length ) {
+				try {
+					var $sticked = $sticky.clone().addClass(stickedClass).removeClass(stickyClass).insertAfter('.' + stickyClass);
 
-				var $sticked = $sticky.clone().addClass(stickedClass).removeClass(stickyClass).insertAfter('.' + stickyClass);
+					$(window).on("scroll resize", function(e) {
+						if($sticky.parent().length && $sticky.parent().offset()) {  // Check if element exists and has offset
+							var stickyOffsetTop = $sticky.parent().offset().top; 
+							var currentScrollPos = $(document).scrollTop(); 
 
-				$(window).on("scroll resize", function(e) {
+							// If the window's scrollTop position is larger than sticky element's vertical top offset
+							// Clone and hide the original element
+							if( ( stickyOffsetTop < currentScrollPos ) && ( $(window).width() > 959 ) ) {
 
-					var stickyOffsetTop = $sticky.parent().offset().top; 
-					var currentScrollPos = $(document).scrollTop(); 
+								$sticky.css({
+									"visibility": "hidden"
+								});
 
-					// If the window's scrollTop position is larger than sticky element's vertical top offset
-					// Clone and hide the original element
-					if( ( stickyOffsetTop < currentScrollPos ) && ( $(window).width() > 959 ) ) {
+								var leftOffset = $('.sticky').parent().offset() ? $('.sticky').parent().offset().left : 0;
 
-						$sticky.css({
-							"visibility": "hidden"
-						});
+								$sticked.css({
+									"display": "block", 
+									"width": $sticky.width(), 
+									"position": "fixed",
+									"z-index": stickedzIndex, 
+									"top": "0",
+									"left": ( $sticky.parent().hasClass('nested') ? leftOffset - 20 : leftOffset ) // Adjust the position in case the sidebar is in a nested column
+								});
 
-						$sticked.css({
-							"display": "block", 
-							"width": $sticky.width(), 
-							"position": "fixed",
-							"z-index": stickedzIndex, 
-							"top": "0",
-							"left": ( $sticky ).parent().hasClass('nested') ? $('.sticky').parent().offset().left - 20 : $('.sticky').parent().offset().left // Adjust the position in case the sidebar is in a nested column
-						});
+							} else {
 
-					} else {
+								$sticky.css({
+									"visibility": "visible"
+								});
 
-						$sticky.css({
-							"visibility": "visible"
-						});
+								$sticked.css({
+									"display": "none"
+								});
 
-						$sticked.css({
-							"display": "none"
-						});
-
-					}
-				});
-
+							}
+						}
+					});
+				} catch(e) {
+					console.warn('Error initializing sticky sidebar:', e);
+				}
 			}
 
 		} // init()

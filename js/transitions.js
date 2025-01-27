@@ -10,6 +10,21 @@
     // Cache for storing fetched pages
     const cache = {};
 
+    // Initialize plugins after DOM updates
+    function initPlugins() {
+        // Destroy existing sticky instances first
+        $('.sticky').each(function() {
+            $(this).data('plugin_typeSticky', null);
+        });
+        
+        // Reinitialize sticky elements
+        if (typeof $.fn.typeSticky === 'function') {
+            setTimeout(() => {
+                $('.sticky').typeSticky();
+            }, 100); // Small delay to ensure DOM is ready
+        }
+    }
+
     // Load page content via fetch 
     function loadPage(url) {
         if (cache[url]) {
@@ -36,36 +51,32 @@
             let newContent = wrapper.querySelector('main > section');
 
             if(oldContent && newContent) {
-                // Clone the new content
-                const newContentClone = newContent.cloneNode(true);
-                
                 // Update page title
                 document.title = wrapper.querySelector('title').textContent;
                 
                 // Set up transition
                 oldContent.style.opacity = '1';
-                newContentClone.style.opacity = '0';
+                newContent.style.opacity = '0';
                 
                 // Add new content to DOM
-                oldContent.parentNode.appendChild(newContentClone);
+                oldContent.parentNode.appendChild(newContent);
                 
-                // Trigger transition
+                // Force reflow
+                newContent.offsetHeight;
+                
+                // Start transition
                 requestAnimationFrame(() => {
                     oldContent.style.transition = 'opacity 0.4s ease-in-out';
-                    newContentClone.style.transition = 'opacity 0.4s ease-in-out';
+                    newContent.style.transition = 'opacity 0.4s ease-in-out';
                     
                     oldContent.style.opacity = '0';
-                    newContentClone.style.opacity = '1';
+                    newContent.style.opacity = '1';
                     
-                    // Clean up after transition
+                    // Clean up and reinitialize
                     setTimeout(() => {
                         oldContent.remove();
                         window.scrollTo(0, scrollPos);
-                        
-                        // Re-initialize sticky elements if they exist
-                        if (typeof $.fn.typeSticky === 'function') {
-                            $('.sticky').typeSticky();
-                        }
+                        initPlugins();
                     }, 400);
                 });
             } else {
@@ -94,5 +105,8 @@
             changePage();
         }
     });
+
+    // Initial plugins setup
+    $(document).ready(initPlugins);
 
 })();
