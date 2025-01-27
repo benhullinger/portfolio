@@ -5,6 +5,8 @@
         return;
     }
 
+    console.log('Transitions.js initialized');
+
     // Cache for storing fetched pages
     const cache = {};
 
@@ -25,8 +27,10 @@
     // Handle page transitions
     function changePage() {
         const url = window.location.href;
+        console.log('Changing page to:', url);
 
         loadPage(url).then(function(responseText) {
+            console.log('Page content loaded');
             const wrapper = document.createElement('div');
             wrapper.innerHTML = responseText;
 
@@ -34,46 +38,53 @@
             const oldContent = document.querySelector('main > section');
             const newContent = wrapper.querySelector('main > section');
 
+            console.log('Old content:', oldContent?.id);
+            console.log('New content:', newContent?.id);
+
             if(oldContent && newContent) {
                 // Update page title
                 document.title = wrapper.querySelector('title').textContent;
                 
-                // Swap content
+                // Set initial styles
+                oldContent.style.position = 'absolute';
+                oldContent.style.width = '100%';
+                oldContent.style.top = '0';
+                oldContent.style.left = '0';
+                oldContent.style.opacity = '1';
+                
+                newContent.style.opacity = '0';
+                
+                // Add to DOM
                 document.querySelector('main').appendChild(newContent);
-                animate(oldContent, newContent);
+                
+                // Force reflow
+                newContent.offsetHeight;
+                
+                // Start transition
+                oldContent.style.transition = 'opacity 1s ease-in-out';
+                newContent.style.transition = 'opacity 1s ease-in-out';
+                
+                // Trigger animations
+                requestAnimationFrame(() => {
+                    oldContent.style.opacity = '0';
+                    newContent.style.opacity = '1';
+                    
+                    console.log('Transition started');
+                    
+                    // Clean up after transition
+                    setTimeout(() => {
+                        oldContent.parentNode.removeChild(oldContent);
+                        console.log('Transition completed');
+                    }, 1000);
+                });
             } else {
-                // Fallback to regular navigation if sections not found
+                console.warn('Required content sections not found, falling back to normal navigation');
                 window.location.href = url;
             }
         }).catch(function(err) {
             console.error('Error during page transition:', err);
             window.location.href = url; // Fallback to regular navigation
         });
-    }
-
-    // Animate transition between pages
-    function animate(oldContent, newContent) {
-        // Set initial styles for both contents
-        oldContent.style.position = 'absolute';
-        oldContent.style.width = '100%';
-        oldContent.style.top = '0';
-        oldContent.style.left = '0';
-        oldContent.style.transition = 'opacity 0.4s ease-in-out';
-        
-        newContent.style.opacity = '0';
-        newContent.style.transition = 'opacity 0.4s ease-in-out';
-        
-        // Force browser reflow
-        newContent.offsetHeight;
-        
-        // Start animation
-        oldContent.style.opacity = '0';
-        newContent.style.opacity = '1';
-        
-        // Remove old content after animation
-        setTimeout(() => {
-            oldContent.parentNode.removeChild(oldContent);
-        }, 400);
     }
 
     // Listen for back/forward navigation
@@ -90,6 +101,7 @@
 
         // Handle only internal links
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
+            console.log('Link clicked:', el.href);
             e.preventDefault();
             history.pushState(null, null, el.href);
             changePage();
