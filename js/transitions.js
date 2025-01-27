@@ -22,12 +22,16 @@
         const url = window.location.href;
         const scrollPos = window.scrollY;
 
+        console.log('Changing page - current content:', document.querySelector('main > section')?.id);
+
         loadPage(url).then(function(responseText) {
             const wrapper = document.createElement('div');
             wrapper.innerHTML = responseText;
 
             const oldContent = document.querySelector('main > section');
-            let newContent = wrapper.querySelector('main > section');
+            const newContent = wrapper.querySelector('main > section');
+
+            console.log('New content loaded:', newContent?.id);
 
             if(oldContent && newContent) {
                 // Update page title
@@ -45,13 +49,13 @@
                     oldContent.style.opacity = '0';
                     newContent.style.opacity = '1';
                     
-                    // Clean up
                     setTimeout(() => {
                         oldContent.remove();
                         window.scrollTo(0, scrollPos);
                     }, 400);
                 });
             } else {
+                console.warn('Missing content - old:', oldContent?.id, 'new:', newContent?.id);
                 window.location.href = url;
             }
         }).catch(function(err) {

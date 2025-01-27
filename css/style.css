@@ -979,21 +979,21 @@ html {
 		/* SVG Icons */
 		#works .item h3 .lock-icon {
 			fill: var(--primary-color);
-			width: 13px !important;
-			height: 13px !important;
+			width: 13px;
+			height: 13px;
 			display: inline-block;
 			vertical-align: middle;
 			margin-left: 1px;
 			padding-bottom: 3.5px;
 			stroke: var(--primary-color);
 			stroke-width: .5px;
-			position: static !important;
-			transform: none !important;
+			position: static;
+			transform: none;
 		}
 
 		/* Remove absolute positioning from works section */
 		#works section {
-			position: static !important;
+			position: static;
 		}
 
 
