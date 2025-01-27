@@ -1299,6 +1299,7 @@ html {
 
 /* Page Transition Styles */
 main > section {
+    opacity: 1;
     transition: opacity 0.4s ease-in-out;
 }
 
