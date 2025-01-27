@@ -126,37 +126,40 @@
             </div><!-- // .container -->
         </div><!-- // .logo-wrap -->
     </section><!-- // #header -->
-    <section id="archive">
-        <div class="container">
-            <div class="desktop-12 columns">
-                <div class="border-top"></div>
-            </div>
-    
-            <div class="entry">
-    
-                <div class="desktop-12 tablet-12 columns">
-    
-                    <div class="box-content">
-    
-    
-                        <h4>Protected Content</h4>
-                        <form id="loginForm" action="/.netlify/functions/login" method="POST">
-                            <input type="password" name="password" id="password" placeholder="Password" />
-                            <!-- <input type="hidden" name="return" id="returnInput" /> -->
-                            <a href="#" class="button" onclick="document.getElementById('loginForm').submit();">Access Protected Content</a>
-                        </form>
-    
-    
-                    </div><!-- // .box-content -->
-                </div><!-- // .desktop-12 -->
-    
-                <div class="clear"></div>
-            </div><!-- // .entry -->
-            <div class="desktop-12 columns">
-                <div class="border-top"></div>
-            </div>
-        </div><!-- // .container -->
-    </section><!-- // section#archive -->
+
+    <main>
+        <section id="archive">
+            <div class="container">
+                <div class="desktop-12 columns">
+                    <div class="border-top"></div>
+                </div>
+        
+                <div class="entry">
+        
+                    <div class="desktop-12 tablet-12 columns">
+        
+                        <div class="box-content">
+        
+        
+                            <h4>Protected Content</h4>
+                            <form id="loginForm" action="/.netlify/functions/login" method="POST">
+                                <input type="password" name="password" id="password" placeholder="Password" />
+                                <!-- <input type="hidden" name="return" id="returnInput" /> -->
+                                <a href="#" class="button" onclick="document.getElementById('loginForm').submit();">Access Protected Content</a>
+                            </form>
+        
+        
+                        </div><!-- // .box-content -->
+                    </div><!-- // .desktop-12 -->
+        
+                    <div class="clear"></div>
+                </div><!-- // .entry -->
+                <div class="desktop-12 columns">
+                    <div class="border-top"></div>
+                </div>
+            </div><!-- // .container -->
+        </section><!-- // section#archive -->
+    </main>
 
     <!-- Footer
     	================================================== -->
@@ -211,5 +214,6 @@
         }
     </script>
     <script src="js/jquery.custom.js"></script>
+    <script src="js/transitions.js"></script>
 </body>
 </html>
