@@ -36,40 +36,35 @@
             let newContent = wrapper.querySelector('main > section');
 
             if(oldContent && newContent) {
+                // Clone the new content
+                const newContentClone = newContent.cloneNode(true);
+                
                 // Update page title
                 document.title = wrapper.querySelector('title').textContent;
-
-                // Copy over any inline styles that might affect layout
-                const oldStyles = oldContent.getAttribute('style');
-                if (oldStyles) {
-                    newContent.setAttribute('style', oldStyles);
-                }
                 
-                // Initialize transition
+                // Set up transition
                 oldContent.style.opacity = '1';
-                newContent.style.opacity = '0';
+                newContentClone.style.opacity = '0';
                 
-                // Add new content
-                document.querySelector('main').appendChild(newContent);
+                // Add new content to DOM
+                oldContent.parentNode.appendChild(newContentClone);
                 
-                // Force reflow and trigger transition
-                newContent.offsetHeight;
+                // Trigger transition
                 requestAnimationFrame(() => {
-                    oldContent.style.opacity = '0';
-                    newContent.style.opacity = '1';
+                    oldContent.style.transition = 'opacity 0.4s ease-in-out';
+                    newContentClone.style.transition = 'opacity 0.4s ease-in-out';
                     
-                    // Clean up and reinitialize plugins
+                    oldContent.style.opacity = '0';
+                    newContentClone.style.opacity = '1';
+                    
+                    // Clean up after transition
                     setTimeout(() => {
-                        oldContent.parentNode.removeChild(oldContent);
+                        oldContent.remove();
                         window.scrollTo(0, scrollPos);
                         
-                        // Reinitialize plugins safely
+                        // Re-initialize sticky elements if they exist
                         if (typeof $.fn.typeSticky === 'function') {
-                            try {
-                                $('.sticky').typeSticky();
-                            } catch (e) {
-                                console.warn('Error reinitializing typeSticky:', e);
-                            }
+                            $('.sticky').typeSticky();
                         }
                     }, 400);
                 });
