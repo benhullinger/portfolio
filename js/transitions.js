@@ -18,33 +18,16 @@
         });
     }
 
-    function updateHeader(newDocument) {
-        // Update the logo link
-        const currentLogo = document.querySelector('#header h1 > a');
-        const newLogo = newDocument.querySelector('#header h1 > a');
-        if (currentLogo && newLogo) {
-            currentLogo.href = newLogo.href;
-            currentLogo.title = newLogo.title;
-        }
-    }
-
     function changePage() {
         const url = window.location.href;
         const scrollPos = window.scrollY;
-
-        console.log('Changing page - current content:', document.querySelector('main > section')?.id);
 
         loadPage(url).then(function(responseText) {
             const wrapper = document.createElement('div');
             wrapper.innerHTML = responseText;
 
-            // Update header links
-            updateHeader(wrapper);
-
             const oldContent = document.querySelector('main > section');
             const newContent = wrapper.querySelector('main > section');
-
-            console.log('New content loaded:', newContent?.id);
 
             if(oldContent && newContent) {
                 // Update page title
@@ -68,7 +51,6 @@
                     }, 400);
                 });
             } else {
-                console.warn('Missing content - old:', oldContent?.id, 'new:', newContent?.id);
                 window.location.href = url;
             }
         }).catch(function(err) {
