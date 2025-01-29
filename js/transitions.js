@@ -115,6 +115,11 @@
                     setTimeout(() => {
                         oldContent.remove();
                         window.scrollTo(0, scrollPos);
+                        
+                        // Reinitialize lightbox if the function exists
+                        if (typeof initDunkedLightbox === 'function') {
+                            initDunkedLightbox('.gallery');
+                        }
                     }, 400);
                 });
             } else {
@@ -129,17 +134,44 @@
     // Event listeners
     window.addEventListener('popstate', changePage);
     
-    // Modified event listener to handle protected content and ignore lightbox clicks
+    // Helper function to check if an element or its parents have a class
+    function hasClassInTree(element, className) {
+        while (element) {
+            if (element.classList && element.classList.contains(className)) {
+                return true;
+            }
+            element = element.parentElement;
+        }
+        return false;
+    }
+
+    // Helper to determine if element is part of lightbox UI
+    function isLightboxElement(el) {
+        return hasClassInTree(el, 'gallery') ||
+               hasClassInTree(el, 'pswp') ||
+               hasClassInTree(el, 'view') ||
+               el.closest('[data-size]') !== null;
+    }
+
+    // Helper to determine if element is part of navigation
+    function isNavElement(el) {
+        return hasClassInTree(el, 'details') ||
+               el.tagName === 'SUMMARY' ||
+               hasClassInTree(el, 'arrow');
+    }
+
+    // Modified event listener to handle all interaction types
     document.addEventListener('click', function(e) {
         let el = e.target;
-        
-        // Check if click is on a lightbox element
-        const isLightboxClick = el.closest('.view') || 
-                              el.closest('.pswp__button') ||
-                              el.closest('.gallery');
-        
-        if (isLightboxClick) {
-            return; // Let the lightbox handle these clicks
+
+        // Handle navigation dropdown clicks
+        if (isNavElement(el)) {
+            return; // Let the native behavior handle it
+        }
+
+        // Handle lightbox clicks
+        if (isLightboxElement(el)) {
+            return; // Let the lightbox handle it
         }
 
         // Find closest anchor tag
