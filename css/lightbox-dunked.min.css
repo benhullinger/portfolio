@@ -166,7 +166,8 @@
 }
 .pswp__button:focus,
 .pswp__button:hover {
-    opacity: 1
+    opacity: 1;
+    background: none;
 }
 .pswp__button:active {
     outline: 0;
