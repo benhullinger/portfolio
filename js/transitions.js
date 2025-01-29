@@ -35,13 +35,9 @@
     }
 
     function loadPage(url) {
-        // Try cache first
         if (cache[url]) {
-            console.log('Using cached version:', url);
             return Promise.resolve(cache[url]);
         }
-
-        console.log('Loading page:', url, 'Auth status:', isAuthenticated());
 
         return fetch(url, {
             method: 'GET',
@@ -51,27 +47,21 @@
                 'Cache-Control': 'no-cache'
             }
         }).then(function(response) {
-            // Debug logging
-            console.log('Response URL:', response.url, 'Original URL:', url);
-            
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             
-            // If we're authenticated and got redirected, try a direct fetch
             if (response.url !== url && isAuthenticated() && isProtectedContent(url)) {
-                console.log('Authenticated redirect detected, trying direct fetch');
                 return fetch(url, {
                     method: 'GET',
                     credentials: 'same-origin',
                     headers: {
                         'Accept': 'text/html',
-                        'Cookie': document.cookie // Explicitly send cookies
+                        'Cookie': document.cookie
                     }
                 }).then(r => r.text());
             }
             
-            // Handle other redirects
             if (response.url !== url) {
                 window.location.href = url;
                 return Promise.reject('Redirect detected');
@@ -151,12 +141,8 @@
             const url = el.href;
             const isProtected = el.querySelector('.lock-icon') || isProtectedContent(url);
             
-            // Debug logging
-            console.log('Navigation attempt:', url, 'Protected:', isProtected, 'Auth:', isAuthenticated());
-            
-            // Let handleNavigation determine if we should use transitions
             if (!handleNavigation(url, isProtected)) {
-                return; // Let default navigation handle it
+                return;
             }
             
             e.preventDefault();
@@ -170,9 +156,4 @@
         // Force initial page into cache
         loadPage(window.location.href).catch(console.error);
     }
-
-    // Add authentication status logging
-    window.addEventListener('load', () => {
-        console.log('Auth status on load:', isAuthenticated());
-    });
 })();
