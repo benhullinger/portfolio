@@ -20,28 +20,33 @@
         if (cache[url]) {
             return Promise.resolve(cache[url]);
         }
+        
+        // Pre-check authentication for protected content
+        if (isProtectedContent(url) && !isAuthenticated()) {
+            window.location.href = url;
+            return Promise.reject('Not authenticated');
+        }
+
         return fetch(url, {
             method: 'GET',
             credentials: 'same-origin' // Important for sending cookies
         }).then(function(response) {
-            // Always check for redirects first
-            if (response.url !== url) {
-                // If we're being redirected to login, always honor it
-                if (response.url.includes('login')) {
-                    window.location.href = url;
-                    return Promise.reject('Redirected to login');
-                }
-                
-                // For any other redirect, use normal navigation
-                window.location.href = url;
-                return Promise.reject('Redirected');
+            // Check status first
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
 
-            // If we got here, we have a direct response
-            return response.text().then(text => {
-                cache[url] = text;
-                return text;
-            });
+            // For successful responses, cache and return
+            if (response.url === url) {
+                return response.text().then(text => {
+                    cache[url] = text;
+                    return text;
+                });
+            }
+
+            // For redirects, let the browser handle it
+            window.location.href = url;
+            return Promise.reject('Redirected');
         });
     }
 
@@ -109,18 +114,25 @@
             el = el.parentNode;
         }
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
-            // Check if this is a protected page
-            const isProtected = el.querySelector('.lock-icon') || isProtectedContent(el.href);
+            // Always prevent default first
+            e.preventDefault();
             
-            // Only bypass transitions if we're not authenticated AND it's protected content
+            const url = el.href;
+            const isProtected = el.querySelector('.lock-icon') || isProtectedContent(url);
+            
             if (isProtected && !isAuthenticated()) {
+                window.location.href = url; // Let default navigation handle it
                 return;
             }
             
-            e.preventDefault();
-            history.pushState(null, null, el.href);
+            history.pushState(null, null, url);
             changePage();
         }
     });
 
+    // Initialize transitions after login if needed
+    if (isAuthenticated() && isProtectedContent(window.location.href)) {
+        // Force initial page into cache
+        loadPage(window.location.href).catch(console.error);
+    }
 })();
