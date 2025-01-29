@@ -23,10 +23,8 @@
         if (isProtected) {
             // For protected content, check authentication before proceeding
             if (isAuthenticated()) {
-                console.log('Authenticated, using transitions for protected content');
                 return true;
             } else {
-                console.log('Not authenticated, using normal navigation');
                 window.location.href = url;
                 return false;
             }
