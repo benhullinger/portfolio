@@ -129,12 +129,24 @@
     // Event listeners
     window.addEventListener('popstate', changePage);
     
-    // Modified event listener to handle protected content
+    // Modified event listener to handle protected content and ignore lightbox clicks
     document.addEventListener('click', function(e) {
         let el = e.target;
+        
+        // Check if click is on a lightbox element
+        const isLightboxClick = el.closest('.view') || 
+                              el.closest('.pswp__button') ||
+                              el.closest('.gallery');
+        
+        if (isLightboxClick) {
+            return; // Let the lightbox handle these clicks
+        }
+
+        // Find closest anchor tag
         while (el && !el.href) {
             el = el.parentNode;
         }
+
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
             const url = el.href;
             const isProtected = el.querySelector('.lock-icon') || isProtectedContent(url);
