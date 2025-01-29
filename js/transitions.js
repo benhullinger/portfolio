@@ -92,11 +92,26 @@
                 (url.includes('#') || url.includes('gid=') || url.includes('pid=')));
     }
 
+    function isLightboxTransition() {
+        return (
+            window._isLightboxTransition || // Check for lightbox flag
+            window.location.hash.includes('&gid=') || // Check for lightbox hash
+            document.querySelector('.pswp--open') // Check if lightbox is visibly open
+        );
+    }
+
     function changePage() {
         const url = window.location.href;
         
-        // Don't transition for anchor links or lightbox URLs
-        if (isAnchorOrLightboxUrl(url)) {
+        // Don't transition during lightbox operations
+        if (isLightboxTransition()) {
+            return;
+        }
+
+        // Ignore pure hash changes (including lightbox hashes)
+        const currentPath = window.location.pathname + window.location.search;
+        const newPath = new URL(url, window.location.origin).pathname + new URL(url, window.location.origin).search;
+        if (currentPath === newPath) {
             return;
         }
 
@@ -202,6 +217,11 @@
         }
 
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
+            // Don't handle lightbox-related clicks
+            if (isLightboxTransition() || isLightboxElement(el)) {
+                return;
+            }
+
             // Don't handle anchor links or lightbox URLs
             if (isAnchorOrLightboxUrl(el.href)) {
                 return;
