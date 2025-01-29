@@ -24,13 +24,25 @@
             method: 'GET',
             credentials: 'same-origin' // Important for sending cookies
         }).then(function(response) {
-            // Handle various authentication scenarios
-            if (response.url.includes('login') || response.url !== url) {
-                if (!isAuthenticated() && isProtectedContent(url)) {
-                    window.location.href = url; // Let regular navigation handle the redirect
-                    return Promise.reject('Unauthorized');
-                }
+            // Modified authentication handling
+            if (response.url.includes('login')) {
+                window.location.href = url;
+                return Promise.reject('Redirected to login');
             }
+            
+            // If we got redirected but we're authenticated, try loading the page directly
+            if (response.url !== url && isAuthenticated()) {
+                return fetch(url, {
+                    method: 'GET',
+                    credentials: 'same-origin'
+                }).then(response => response.text());
+            }
+            
+            if (response.url !== url) {
+                window.location.href = url;
+                return Promise.reject('Redirected');
+            }
+            
             cache[url] = response.text();
             return cache[url];
         });
@@ -103,7 +115,7 @@
             // Check if this is a protected page
             const isProtected = el.querySelector('.lock-icon') || isProtectedContent(el.href);
             
-            // If it's protected content and user is not authenticated, let default navigation handle it
+            // Only bypass transitions if we're not authenticated AND it's protected content
             if (isProtected && !isAuthenticated()) {
                 return;
             }
