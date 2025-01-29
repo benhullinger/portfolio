@@ -13,6 +13,11 @@
         return fetch(url, {
             method: 'GET'
         }).then(function(response) {
+            // Check if we got redirected to a login page
+            if (response.url.includes('login') || response.url !== url) {
+                window.location.href = url; // Fallback to normal navigation
+                return Promise.reject('Redirected to login');
+            }
             cache[url] = response.text();
             return cache[url];
         });
@@ -80,6 +85,12 @@
             el = el.parentNode;
         }
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
+            // Check for password-protected indicator (lock icon)
+            const hasLockIcon = el.querySelector('.lock-icon');
+            if (hasLockIcon) {
+                return; // Let the default navigation handle protected pages
+            }
+            
             e.preventDefault();
             history.pushState(null, null, el.href);
             changePage();
