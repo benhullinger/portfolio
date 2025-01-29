@@ -4,6 +4,13 @@
   force = true
   conditions = {Role = ["pro"]}
 
+# Add this new rule to allow JS access
+[[redirects]]
+  from = "/pro/js/*"
+  to = "/js/:splat"
+  status = 200
+  force = true
+
 [[redirects]]
  from = "/pro/*"
  to = "/.netlify/functions/redirect"
