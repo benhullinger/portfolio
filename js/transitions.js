@@ -24,25 +24,20 @@
             method: 'GET',
             credentials: 'same-origin' // Important for sending cookies
         }).then(function(response) {
-            // Check if the response is ok before proceeding
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            
-            // Don't reject on redirects if we're authenticated
-            if (isAuthenticated()) {
-                return response.text().then(text => {
-                    cache[url] = text;
-                    return text;
-                });
-            }
-            
-            // Handle unauthenticated redirects
-            if (response.url.includes('login') || response.url !== url) {
+            // Always check for redirects first
+            if (response.url !== url) {
+                // If we're being redirected to login, always honor it
+                if (response.url.includes('login')) {
+                    window.location.href = url;
+                    return Promise.reject('Redirected to login');
+                }
+                
+                // For any other redirect, use normal navigation
                 window.location.href = url;
-                return Promise.reject('Redirected to login');
+                return Promise.reject('Redirected');
             }
-            
+
+            // If we got here, we have a direct response
             return response.text().then(text => {
                 cache[url] = text;
                 return text;
@@ -128,14 +123,4 @@
         }
     });
 
-    // Initialize page transitions after login
-    if (isAuthenticated() && isProtectedContent(window.location.href)) {
-        // Force the page to use transitions on initial protected page load
-        window.addEventListener('load', () => {
-            const currentUrl = window.location.href;
-            loadPage(currentUrl).then(responseText => {
-                cache[currentUrl] = responseText;
-            }).catch(console.error);
-        });
-    }
 })();
