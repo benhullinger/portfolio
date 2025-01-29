@@ -99,18 +99,21 @@
     }
 
     function isLightboxTransition() {
+        // Check for any lightbox-related state
         return (
-            window._isLightboxTransition ||
-            (window.location.hash && window.location.hash.includes('&gid=') && window.location.hash.includes('&pid=')) ||
-            document.querySelector('.pswp--open')
+            window._isLightboxTransition || // Global flag
+            document.querySelector('.pswp--open') || // Open lightbox
+            document.querySelector('.pswp--transitioning') || // Transitioning lightbox
+            (window.location.hash && window.location.hash.includes('&gid=')) // Lightbox hash
         );
     }
 
     function changePage() {
         const url = window.location.href;
         
-        // Only check for lightbox state now
-        if (window._isLightboxTransition || document.querySelector('.pswp--open')) {
+        // Skip transitions during lightbox operations
+        if (isLightboxTransition()) {
+            console.log('Skipping transition due to lightbox operation');
             return;
         }
 
