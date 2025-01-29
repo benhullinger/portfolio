@@ -24,27 +24,29 @@
             method: 'GET',
             credentials: 'same-origin' // Important for sending cookies
         }).then(function(response) {
-            // Modified authentication handling
-            if (response.url.includes('login')) {
+            // Check if the response is ok before proceeding
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            // Don't reject on redirects if we're authenticated
+            if (isAuthenticated()) {
+                return response.text().then(text => {
+                    cache[url] = text;
+                    return text;
+                });
+            }
+            
+            // Handle unauthenticated redirects
+            if (response.url.includes('login') || response.url !== url) {
                 window.location.href = url;
                 return Promise.reject('Redirected to login');
             }
             
-            // If we got redirected but we're authenticated, try loading the page directly
-            if (response.url !== url && isAuthenticated()) {
-                return fetch(url, {
-                    method: 'GET',
-                    credentials: 'same-origin'
-                }).then(response => response.text());
-            }
-            
-            if (response.url !== url) {
-                window.location.href = url;
-                return Promise.reject('Redirected');
-            }
-            
-            cache[url] = response.text();
-            return cache[url];
+            return response.text().then(text => {
+                cache[url] = text;
+                return text;
+            });
         });
     }
 
@@ -125,4 +127,15 @@
             changePage();
         }
     });
+
+    // Initialize page transitions after login
+    if (isAuthenticated() && isProtectedContent(window.location.href)) {
+        // Force the page to use transitions on initial protected page load
+        window.addEventListener('load', () => {
+            const currentUrl = window.location.href;
+            loadPage(currentUrl).then(responseText => {
+                cache[currentUrl] = responseText;
+            }).catch(console.error);
+        });
+    }
 })();
