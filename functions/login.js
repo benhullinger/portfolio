@@ -18,14 +18,18 @@ exports.handler = async function (event, context) {
     });
     const access_token = response.data.access_token;
 
-      return {
-          statusCode: 302,
-          headers: {
-              'Set-Cookie': `nf_jwt=${access_token}; Path=/; HttpOnly; Secure`,
-              'Cache-Control': 'no-cache',
-              Location: redirect || '/pro/',
-          },
-      };
+    return {
+      statusCode: 302,
+      headers: {
+        // Set two cookies - one HttpOnly for security, one for JS detection
+        'Set-Cookie': [
+          `nf_jwt=${access_token}; Path=/; HttpOnly; Secure`,
+          `auth_status=true; Path=/; Secure`
+        ].join(', '),
+        'Cache-Control': 'no-cache',
+        Location: redirect || '/pro/',
+      },
+    };
 
   } catch (error) {
       return {

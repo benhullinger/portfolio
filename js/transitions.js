@@ -6,9 +6,11 @@
 
     const cache = {};
     
-    // Check if user is authenticated by looking for the nf_jwt cookie
+    // Update authentication check to look for our new cookie
     function isAuthenticated() {
-        return document.cookie.split(';').some(item => item.trim().startsWith('nf_jwt='));
+        return document.cookie.split(';').some(item => 
+            item.trim().startsWith('auth_status=true')
+        );
     }
 
     // Check if a URL points to protected content
@@ -168,4 +170,9 @@
         // Force initial page into cache
         loadPage(window.location.href).catch(console.error);
     }
+
+    // Add authentication status logging
+    window.addEventListener('load', () => {
+        console.log('Auth status on load:', isAuthenticated());
+    });
 })();
