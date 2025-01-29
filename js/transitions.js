@@ -17,36 +17,51 @@
     }
 
     function loadPage(url) {
+        // Try cache first
         if (cache[url]) {
+            console.log('Using cached version:', url);
             return Promise.resolve(cache[url]);
         }
-        
-        // Pre-check authentication for protected content
-        if (isProtectedContent(url) && !isAuthenticated()) {
-            window.location.href = url;
-            return Promise.reject('Not authenticated');
-        }
+
+        console.log('Loading page:', url, 'Auth status:', isAuthenticated());
 
         return fetch(url, {
             method: 'GET',
-            credentials: 'same-origin' // Important for sending cookies
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'text/html'
+            }
         }).then(function(response) {
-            // Check status first
+            // Debug logging
+            console.log('Response URL:', response.url, 'Original URL:', url);
+            
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            // If we're authenticated and got redirected, try a direct fetch
+            if (response.url !== url && isAuthenticated() && isProtectedContent(url)) {
+                console.log('Authenticated redirect detected, trying direct fetch');
+                return fetch(url, {
+                    method: 'GET',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Accept': 'text/html',
+                        'Cookie': document.cookie // Explicitly send cookies
+                    }
+                }).then(r => r.text());
+            }
+            
+            // Handle other redirects
+            if (response.url !== url) {
+                window.location.href = url;
+                return Promise.reject('Redirect detected');
             }
 
-            // For successful responses, cache and return
-            if (response.url === url) {
-                return response.text().then(text => {
-                    cache[url] = text;
-                    return text;
-                });
-            }
-
-            // For redirects, let the browser handle it
-            window.location.href = url;
-            return Promise.reject('Redirected');
+            return response.text();
+        }).then(text => {
+            cache[url] = text;
+            return text;
         });
     }
 
@@ -114,17 +129,18 @@
             el = el.parentNode;
         }
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
-            // Always prevent default first
-            e.preventDefault();
-            
             const url = el.href;
             const isProtected = el.querySelector('.lock-icon') || isProtectedContent(url);
             
+            // Debug logging
+            console.log('Click detected:', url, 'Protected:', isProtected, 'Auth:', isAuthenticated());
+            
+            // Don't prevent default for protected content without auth
             if (isProtected && !isAuthenticated()) {
-                window.location.href = url; // Let default navigation handle it
                 return;
             }
             
+            e.preventDefault();
             history.pushState(null, null, url);
             changePage();
         }
