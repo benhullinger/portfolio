@@ -20,12 +20,13 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 302,
-      headers: {
-        // Set two cookies - one HttpOnly for security, one for JS detection
+      multiValueHeaders: {
         'Set-Cookie': [
           `nf_jwt=${access_token}; Path=/; HttpOnly; Secure`,
           `auth_status=true; Path=/; Secure`
-        ].join(', '),
+        ],
+      },
+      headers: {
         'Cache-Control': 'no-cache',
         Location: redirect || '/pro/',
       },
@@ -37,7 +38,4 @@ exports.handler = async function (event, context) {
           headers: {
               'Cache-Control': 'no-cache',
               Location: `/login/?redirect=${encodeURIComponent(redirect)}`,
-          },
-      };
-  }
-};
+          },      };  }};
