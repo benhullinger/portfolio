@@ -109,23 +109,12 @@
     function changePage() {
         const url = window.location.href;
         
-        // Only skip transitions for actual lightbox operations
-        if (isLightboxTransition()) {
-            return;
-        }
-
-        // Skip transition only for pure anchor links or lightbox URLs
-        if (isAnchorOrLightboxUrl(url)) {
+        // Only check for lightbox state now
+        if (window._isLightboxTransition || document.querySelector('.pswp--open')) {
             return;
         }
 
         const scrollPos = window.scrollY;
-        
-        // Check if lightbox is open
-        const lightboxOpen = document.querySelector('.pswp--open');
-        if (lightboxOpen) {
-            return; // Don't perform page transition if lightbox is open
-        }
 
         loadPage(url).then(function(responseText) {
             const wrapper = document.createElement('div');
@@ -205,32 +194,19 @@
     document.addEventListener('click', function(e) {
         let el = e.target;
 
-        // Handle navigation dropdown clicks
         if (isNavElement(el)) {
-            return; // Let the native behavior handle it
+            return;
         }
 
-        // Handle lightbox clicks
-        if (isLightboxElement(el)) {
-            return; // Let the lightbox handle it
+        if (isLightboxElement(el) || window._isLightboxTransition) {
+            return;
         }
 
-        // Find closest anchor tag
         while (el && !el.href) {
             el = el.parentNode;
         }
 
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
-            // Don't handle lightbox-related clicks
-            if (isLightboxTransition() || isLightboxElement(el)) {
-                return;
-            }
-
-            // Don't handle anchor links or lightbox URLs
-            if (isAnchorOrLightboxUrl(el.href)) {
-                return;
-            }
-
             const url = el.href;
             const isProtected = el.querySelector('.lock-icon') || isProtectedContent(url);
             
