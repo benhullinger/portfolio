@@ -82,8 +82,24 @@
         }
     }
 
+    function isAnchorOrLightboxUrl(url) {
+        // Check for anchor links or lightbox URLs
+        const currentPath = window.location.pathname;
+        const newPath = new URL(url, window.location.origin).pathname;
+        
+        // If it's the same page and has a hash, or contains lightbox parameters
+        return (currentPath === newPath && 
+                (url.includes('#') || url.includes('gid=') || url.includes('pid=')));
+    }
+
     function changePage() {
         const url = window.location.href;
+        
+        // Don't transition for anchor links or lightbox URLs
+        if (isAnchorOrLightboxUrl(url)) {
+            return;
+        }
+
         const scrollPos = window.scrollY;
         
         // Check if lightbox is open
@@ -186,6 +202,11 @@
         }
 
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
+            // Don't handle anchor links or lightbox URLs
+            if (isAnchorOrLightboxUrl(el.href)) {
+                return;
+            }
+
             const url = el.href;
             const isProtected = el.querySelector('.lock-icon') || isProtectedContent(url);
             
