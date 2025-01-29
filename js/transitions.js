@@ -83,35 +83,39 @@
     }
 
     function isAnchorOrLightboxUrl(url) {
-        // Check for anchor links or lightbox URLs
+        // Only consider it a lightbox URL if it has both gid and pid parameters
+        const isLightboxHash = url.includes('#&gid=') && url.includes('&pid=');
+        
+        // Get current path without hash
         const currentPath = window.location.pathname;
         const newPath = new URL(url, window.location.origin).pathname;
         
-        // If it's the same page and has a hash, or contains lightbox parameters
-        return (currentPath === newPath && 
-                (url.includes('#') || url.includes('gid=') || url.includes('pid=')));
+        // It's an anchor link if it's the same page and has a hash that isn't a lightbox hash
+        const isAnchorLink = currentPath === newPath && 
+                            url.includes('#') && 
+                            !isLightboxHash;
+        
+        return isAnchorLink || isLightboxHash;
     }
 
     function isLightboxTransition() {
         return (
-            window._isLightboxTransition || // Check for lightbox flag
-            window.location.hash.includes('&gid=') || // Check for lightbox hash
-            document.querySelector('.pswp--open') // Check if lightbox is visibly open
+            window._isLightboxTransition ||
+            (window.location.hash && window.location.hash.includes('&gid=') && window.location.hash.includes('&pid=')) ||
+            document.querySelector('.pswp--open')
         );
     }
 
     function changePage() {
         const url = window.location.href;
         
-        // Don't transition during lightbox operations
+        // Only skip transitions for actual lightbox operations
         if (isLightboxTransition()) {
             return;
         }
 
-        // Ignore pure hash changes (including lightbox hashes)
-        const currentPath = window.location.pathname + window.location.search;
-        const newPath = new URL(url, window.location.origin).pathname + new URL(url, window.location.origin).search;
-        if (currentPath === newPath) {
+        // Skip transition only for pure anchor links or lightbox URLs
+        if (isAnchorOrLightboxUrl(url)) {
             return;
         }
 
