@@ -5,18 +5,31 @@
     }
 
     const cache = {};
+    
+    // Check if user is authenticated by looking for the nf_jwt cookie
+    function isAuthenticated() {
+        return document.cookie.split(';').some(item => item.trim().startsWith('nf_jwt='));
+    }
+
+    // Check if a URL points to protected content
+    function isProtectedContent(url) {
+        return url.includes('/pro/');
+    }
 
     function loadPage(url) {
         if (cache[url]) {
             return Promise.resolve(cache[url]);
         }
         return fetch(url, {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'same-origin' // Important for sending cookies
         }).then(function(response) {
-            // Check if we got redirected to a login page
+            // Handle various authentication scenarios
             if (response.url.includes('login') || response.url !== url) {
-                window.location.href = url; // Fallback to normal navigation
-                return Promise.reject('Redirected to login');
+                if (!isAuthenticated() && isProtectedContent(url)) {
+                    window.location.href = url; // Let regular navigation handle the redirect
+                    return Promise.reject('Unauthorized');
+                }
             }
             cache[url] = response.text();
             return cache[url];
@@ -79,16 +92,20 @@
 
     // Event listeners
     window.addEventListener('popstate', changePage);
+    
+    // Modified event listener to handle protected content
     document.addEventListener('click', function(e) {
         let el = e.target;
         while (el && !el.href) {
             el = el.parentNode;
         }
         if (el && el.href && el.href.indexOf(window.location.origin) === 0) {
-            // Check for password-protected indicator (lock icon)
-            const hasLockIcon = el.querySelector('.lock-icon');
-            if (hasLockIcon) {
-                return; // Let the default navigation handle protected pages
+            // Check if this is a protected page
+            const isProtected = el.querySelector('.lock-icon') || isProtectedContent(el.href);
+            
+            // If it's protected content and user is not authenticated, let default navigation handle it
+            if (isProtected && !isAuthenticated()) {
+                return;
             }
             
             e.preventDefault();
