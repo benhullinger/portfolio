@@ -16,6 +16,22 @@
         return url.includes('/pro/');
     }
 
+    // Handle navigation based on authentication status
+    function handleNavigation(url, isProtected) {
+        if (isProtected) {
+            // For protected content, check authentication before proceeding
+            if (isAuthenticated()) {
+                console.log('Authenticated, using transitions for protected content');
+                return true;
+            } else {
+                console.log('Not authenticated, using normal navigation');
+                window.location.href = url;
+                return false;
+            }
+        }
+        return true; // Allow transitions for non-protected content
+    }
+
     function loadPage(url) {
         // Try cache first
         if (cache[url]) {
@@ -29,7 +45,8 @@
             method: 'GET',
             credentials: 'same-origin',
             headers: {
-                'Accept': 'text/html'
+                'Accept': 'text/html',
+                'Cache-Control': 'no-cache'
             }
         }).then(function(response) {
             // Debug logging
@@ -133,11 +150,11 @@
             const isProtected = el.querySelector('.lock-icon') || isProtectedContent(url);
             
             // Debug logging
-            console.log('Click detected:', url, 'Protected:', isProtected, 'Auth:', isAuthenticated());
+            console.log('Navigation attempt:', url, 'Protected:', isProtected, 'Auth:', isAuthenticated());
             
-            // Don't prevent default for protected content without auth
-            if (isProtected && !isAuthenticated()) {
-                return;
+            // Let handleNavigation determine if we should use transitions
+            if (!handleNavigation(url, isProtected)) {
+                return; // Let default navigation handle it
             }
             
             e.preventDefault();
