@@ -85,6 +85,12 @@
     function changePage() {
         const url = window.location.href;
         const scrollPos = window.scrollY;
+        
+        // Check if lightbox is open
+        const lightboxOpen = document.querySelector('.pswp--open');
+        if (lightboxOpen) {
+            return; // Don't perform page transition if lightbox is open
+        }
 
         loadPage(url).then(function(responseText) {
             const wrapper = document.createElement('div');

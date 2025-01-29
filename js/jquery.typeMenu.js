@@ -89,6 +89,20 @@
 
 		});
 
+		 // Close dropdowns when clicking outside
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest('details').length) {
+                $('details').removeAttr('open');
+            }
+        });
+
+        // Prevent details from closing when clicking inside
+        $('details').on('click', function(event) {
+            if ($(event.target).closest('details').length) {
+                event.stopPropagation();
+            }
+        });
+
 		// If mobileToggle options is turned on (default)
 		// Create a mobile menu wrapper and copy contents from the original menu
 		if( this.options.mobileToggle == true ) {
