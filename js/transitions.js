@@ -108,6 +108,16 @@
         );
     }
 
+    // Initialize lightbox for the current page
+    function initializeLightbox() {
+        if (typeof initDunkedLightbox === 'function') {
+            initDunkedLightbox('.gallery');
+        }
+    }
+
+    // Call on initial page load
+    initializeLightbox();
+
     function changePage() {
         const url = window.location.href;
         
@@ -149,10 +159,8 @@
                         oldContent.remove();
                         window.scrollTo(0, scrollPos);
                         
-                        // Reinitialize lightbox if the function exists
-                        if (typeof initDunkedLightbox === 'function') {
-                            initDunkedLightbox('.gallery');
-                        }
+                        // Reinitialize lightbox after page transition
+                        initializeLightbox();
                     }, 400);
                 });
             } else {
@@ -228,4 +236,14 @@
         // Force initial page into cache
         loadPage(window.location.href).catch(console.error);
     }
+
+    // Add event listener for DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeLightbox();
+    });
+
+    // Make sure lightbox is initialized after any popstate events
+    window.addEventListener('popstate', function() {
+        setTimeout(initializeLightbox, 100);
+    });
 })();
