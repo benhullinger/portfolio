@@ -355,11 +355,23 @@
 	-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.min.js'></script>
-	<script src="js/jQuery.BlackAndWhite.min.js"></script>
 	<script src="js/modernizr.js"></script>
+	<script src="js/jQuery.BlackAndWhite.min.js"></script>
 	<script src="js/less-1.4.0.min.js"></script>
 	<script src="js/jquery.typeMenu.js"></script>
 	<script src="js/jquery.typeSticky.js"></script>
+	<!-- Load lightbox script before transitions -->
+	<script src="js/lightbox-dunked.min.js"></script>
+	<script>
+	    // Initialize lightbox immediately after script loads
+	    if (typeof initDunkedLightbox === 'function') {
+	        initDunkedLightbox('.gallery');
+	    }
+	</script>
+	<script src="js/transitions.js"></script>
+	<script src="js/jquery.custom.js"></script>
+
+	<!-- Theme switcher script can go last -->
 	<script type="text/javascript">
 		const toggleSwitch = document.querySelector(".hotspot");
 		const currentTheme = localStorage.getItem("theme");
@@ -396,8 +408,6 @@
 
 		toggleSwitch.addEventListener("click", switchTheme);
 	</script>
-	<script src="js/jquery.custom.js"></script>
-	<script src="js/transitions.js"></script>
 
 <!-- End Document
 ================================================== -->
