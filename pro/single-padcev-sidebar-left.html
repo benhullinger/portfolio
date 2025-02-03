@@ -55,6 +55,8 @@
     <style>
         .card-wrapper {
             perspective: 2000px;
+            width: fit-content;  /* Match content size */
+            height: fit-content; /* Match content size */
         }
 
         .banner-grid {
@@ -235,6 +237,17 @@
                 width: 160px;
                 height: 600px;
             }
+        }
+
+        /* For the 728 banner specifically */
+        #banner728.card {
+            position: relative;
+            display: block; /* Ensure it takes up space */
+        }
+
+        .banner-row-top .card-wrapper {
+            width: 728px;  /* Explicit width for 728 wrapper */
+            height: 90px;  /* Explicit height for 728 wrapper */
         }
     </style>
 </head>
