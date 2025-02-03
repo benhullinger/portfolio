@@ -80,24 +80,24 @@
         }
 
         /* Banner sizing */
-        #banner728 {
+        #leaderboard-card {
             width: 728px;
             height: 90px;
             transform-style: preserve-3d; /* For parallax effect */
             position: relative;
         }
 
-        #banner300 {
+        #square-card {
             width: 300px;
             height: 250px;
         }
 
-        #banner600 {
+        #vertical-card {
             width: 300px;
             height: 600px;
         }
 
-        #banner160 {
+        #skyscraper-card {
             width: 160px;
             height: 600px;
         }
@@ -133,22 +133,22 @@
         }
 
         /* Banner-specific image dimensions */
-        #banner300 .image-layer {
+        #square-card .image-layer {
             width: 530px;
             height: 442px;
         }
 
-        #banner600 .image-layer {
+        #vertical-card .image-layer {
             width: 376px;
             height: 676px;
         }
 
-        #banner160 .image-layer {
+        #skyscraper-card .image-layer {
             width: 236px;
             height: 676px;
         }
 
-        #banner728 .image-layer {
+        #leaderboard-card .image-layer {
             width: 824px;
             height: 186px;
         }
@@ -222,22 +222,22 @@
             }
             
             /* Maintain banner aspect ratios */
-            #banner728 {
+            #leaderboard-card {
                 width: 728px;
                 height: 90px;
             }
 
-            #banner300 {
+            #square-card {
                 width: 300px;
                 height: 250px;
             }
 
-            #banner600 {
+            #vertical-card {
                 width: 300px;
                 height: 600px;
             }
 
-            #banner160 {
+            #skyscraper-card {
                 width: 160px;
                 height: 600px;
             }
@@ -402,7 +402,7 @@
                     <div class="banner-grid">
                         <div class="banner-row-top">
                             <div class="card-wrapper">
-                                <div id="banner728" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-max="15"
+                                <div id="leaderboard-card" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-max="15"
                                     data-tilt-perspective="2000">
                                     <div class="card-image">
                                         <div class="image-layer layer-1" style="background-image: url('../images/bannerad/ISI728.png')"></div>
@@ -415,7 +415,7 @@
                         </div>
                         <div class="banner-row-bottom">
                             <div class="card-wrapper">
-                                <div id="banner300" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-max="15"
+                                <div id="square-card" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-max="15"
                                     data-tilt-perspective="2000">
                                     <div class="card-image">
                                         <div class="image-layer layer-1" style="background-image: url('../images/bannerad/ISI300.png')"></div>
@@ -430,7 +430,7 @@
                                 </div>
                             </div>
                             <div class="card-wrapper">
-                                <div id="banner600" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-max="15"
+                                <div id="vertical-card" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-max="15"
                                     data-tilt-perspective="2000">
                                     <div class="card-image">
                                         <div class="image-layer layer-1" style="background-image: url('../images/bannerad/ISI600.png')"></div>
@@ -444,7 +444,7 @@
                                 </div>
                             </div>
                             <div class="card-wrapper">
-                                <div id="banner160" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-max="15"
+                                <div id="skyscraper-card" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.2" data-tilt-max="15"
                                     data-tilt-perspective="2000">
                                     <div class="card-image">
                                         <div class="image-layer layer-1" style="background-image: url('../images/bannerad/ISI160.png')"></div>
@@ -588,7 +588,7 @@
             }
 
             // Initialize parallax for each banner
-            ['banner300', 'banner600', 'banner160', 'banner728'].forEach(bannerId => {
+            ['square-card', 'vertical-card', 'skyscraper-card', 'leaderboard-card'].forEach(bannerId => {
                 initParallax(bannerId);
             });
         });
