@@ -142,9 +142,11 @@
         
         
                             <h4>Protected Content</h4>
+                            <div id="loginError" style="display: none; color: var(--primary-color); margin-bottom: 15px; font-size: 14px;">
+                                Incorrect password. Please try again.
+                            </div>
                             <form id="loginForm" action="/.netlify/functions/login" method="POST">
                                 <input type="password" name="password" id="password" placeholder="Password" />
-                                <!-- <input type="hidden" name="return" id="returnInput" /> -->
                                 <a href="#" class="button" onclick="document.getElementById('loginForm').submit();">Access Protected Content</a>
                             </form>
         
@@ -215,5 +217,12 @@
     </script>
     <script src="js/jquery.custom.js"></script>
     <script src="js/transitions.js"></script>
+    <script>
+        // Check for error parameter and show error message if present
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error') === 'invalid') {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
